@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment1">
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.example.groceryshop.Fragments.produit_fragment"
+        android:label="Catégories"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragment1_to_recyclerP_fragment"
+            app:destination="@id/recyclerP_fragment"
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.example.groceryshop.Fragments.panier_fragment"
+        android:label="Panier"
+        tools:layout="@layout/panier_gridview" />
+    <fragment
+        android:id="@+id/recyclerP_fragment"
+        android:name="com.example.groceryshop.Fragments.recyclerP_fragment"
+        android:label="produit_recycler"
+        tools:layout="@layout/produit_recycler" >
+        <argument
+            android:name="categorie"
+            app:argType="string" />
+    </fragment>
+
+
+</navigation>
