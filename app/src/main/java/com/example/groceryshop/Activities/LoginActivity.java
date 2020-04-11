@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
    private static  CheckBox showPassword;
     private static LinearLayout loginForm;
     private static Animation shakeAnimation;
+    private String passW;
 
     @Override
     public void onBackPressed() {
@@ -171,7 +172,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
     private void loadUrlData() {
         String user=username.getText().toString();
-        String passW=password.getText().toString();
+        passW=password.getText().toString();
 
         if(user.trim().length()>0 && passW.trim().length()>0){
             URL_DATA=URL_DATA.concat("username="+user);
@@ -189,7 +190,9 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                         for (int i = 0; i < json.length(); i++) {
                             JSONObject cat = json.getJSONObject(i);
                             pseudo=cat.getString("username");
+
                             pass=cat.getString("password");
+                            Log.d("passclient",""+pass);
                             email=cat.getString("email");
                             address=cat.getString("address");
                             phone=cat.getString("phone");
@@ -198,7 +201,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
                         }
                     if(ClientExist){
-                        SSP.createLoginSession(pseudo,pass);
+                        SSP.createLoginSession(pseudo,passW);
                         Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent);
                     }else{
@@ -218,7 +221,9 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("error",""+error);
-                    Toast.makeText(getApplicationContext(), "vérifier votre connexion" , Toast.LENGTH_LONG).show();
+
+                    new CustomToast().Show_Toast(getApplicationContext(), view,
+                            "vérifier votre connexion.");
 
                 }
 

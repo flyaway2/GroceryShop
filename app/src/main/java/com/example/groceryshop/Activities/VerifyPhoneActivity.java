@@ -58,6 +58,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private String getPassword;
     private String getEmail;
     private String getAddress;
+    private String getLatitude;
+    private String getLongitude;
     SaveSharedPreference SSP;
 
     private static String URL_DATA=DBUrl.URL_DATA.concat("signup.php?");
@@ -81,6 +83,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         getPhone=intent.getStringExtra("phone");
         getEmail=intent.getStringExtra("email");
         getAddress=intent.getStringExtra("address");
+        getLongitude=intent.getStringExtra("longitude");
+        getLatitude=intent.getStringExtra("latitude");
 
 
         //initializing objects
@@ -239,6 +243,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 params.put("address", getAddress);
                 params.put("password", getPassword);
                 params.put("email",getEmail);
+                params.put("longitude",getLongitude);
+                params.put("latitude",getLatitude);
 
 
                 return params;

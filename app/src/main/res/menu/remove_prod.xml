@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <item android:id="@+id/remove_prod"
+        android:icon="@drawable/trash32"
+        android:title="remove"
+        app:showAsAction="ifRoom|collapseActionView"
+
+
+
+        />
+
+        <item android:id="@+id/select_all"
+
+            android:title="Select All"
+            android:checkable="true"
+            app:actionViewClass="android.widget.CheckBox"
+
+
+
+            />
+    <item android:id="@+id/annuler"
+        android:titleCondensed="@string/annuler"
+        android:title="@string/annuler"
+        app:actionViewClass="android.widget.Button"
+
+
+        />
+
+
+</menu>

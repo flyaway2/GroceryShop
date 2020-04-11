@@ -7,13 +7,14 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.example.groceryshop.Fragments.produit_fragment"
+        android:name="com.example.groceryshop.Fragments.categorie_fragment"
         android:label="Catégories"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home"
+
+        >
         <action
             android:id="@+id/action_fragment1_to_recyclerP_fragment"
             app:destination="@id/recyclerP_fragment"
-
             />
     </fragment>
     <fragment
@@ -23,13 +24,34 @@
         tools:layout="@layout/panier_gridview" />
     <fragment
         android:id="@+id/recyclerP_fragment"
-        android:name="com.example.groceryshop.Fragments.recyclerP_fragment"
-        android:label="produit_recycler"
+        android:name="com.example.groceryshop.Fragments.produit_fragment"
+        android:label="Produits"
         tools:layout="@layout/produit_recycler" >
         <argument
             android:name="categorie"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.example.groceryshop.Fragments.profile_fragment"
+        android:label="compte"
+        tools:layout="@layout/compte" />
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.example.groceryshop.Fragments.Map_fragment"
+        android:label="Address"
+
+        tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/error_fragment"
+        android:name="com.example.groceryshop.Fragments.error_fragment"
+        android:label="Error"
+        tools:layout="@layout/nonetwork" />
+    <fragment
+        android:id="@+id/empty_fragment"
+        android:name="com.example.groceryshop.Fragments.empty_fragment"
+        android:label="Panier"
+        tools:layout="@layout/empty_fragment" />
 
 
 </navigation>

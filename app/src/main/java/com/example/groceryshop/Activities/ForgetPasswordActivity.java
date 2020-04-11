@@ -14,10 +14,22 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.groceryshop.custom.CustomToast;
+import com.example.groceryshop.custom.DBUrl;
 import com.example.groceryshop.custom.Utils;
 import com.example.groceryshop.R;
+import com.example.groceryshop.custom.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,11 +37,14 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     private View view;
     private static EditText emailId;
     private static TextView submit, back;
+    private String URL_DATAUsername,getUsername,getPhone;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.forgetpassword);
+        URL_DATAUsername= DBUrl.URL_DATA.concat("getUsername.php?");
         overridePendingTransition(R.anim.right_enter, R.anim.left_out);
         initViews();
         setListeners();
@@ -85,26 +100,85 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     private void submitButtonTask() {
         String getEmailId = emailId.getText().toString();
 
-        // Pattern for email id validation
-        Pattern p = Pattern.compile(Utils.regEx);
-
-        // Match the pattern
-        Matcher m = p.matcher(getEmailId);
-
         // First check if email id is not null else show error toast
         if (getEmailId.equals("") || getEmailId.length() == 0)
 
             new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "Please enter your Email Id.");
-
-            // Check if email id is valid or not
-        else if (!m.find())
-            new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "Your Email Id is Invalid.");
+                    "entrer votre Numéro.");
 
             // Else submit email id and fetch passwod or do your stuff
         else
-            Toast.makeText(getApplicationContext(), "Get Forgot Password.",
-                    Toast.LENGTH_SHORT).show();
+        {
+            getPhone=emailId.getText().toString();
+            Pattern p=Pattern.compile(Utils.regExPhone);
+            Matcher m=p.matcher(getPhone);
+            if(!m.matches()){
+                new CustomToast().Show_Toast(getApplicationContext(), view,
+                        "Numéro Invalide.");
+            }else
+            {
+                getUsername();
+            }
+
+
+        }
+
+
+    }
+
+    public void getUsername(){
+        RequestQueue reqeu= VolleySingleton.getInstance(this).getRequestQueue();
+
+        StringRequest req;
+
+        req = new StringRequest(Request.Method.POST, URL_DATAUsername, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray json = new JSONArray(response);
+
+                    if(json.length()==0){
+
+                        new CustomToast().Show_Toast(getApplicationContext(), view,
+                                "Le numéro n'existe pas");
+                    }else
+                    {
+
+                        JSONObject client = json.getJSONObject(0);
+                        getUsername = client.getString("username");
+                        Intent intent=new Intent(getApplicationContext(),CheckAccount_Activity.class);
+                        intent.putExtra("phone",emailId.getText().toString());
+                        intent.putExtra("username",getUsername);
+                        startActivity(intent);
+                    }
+
+
+                } catch (Exception e) {
+                    Log.d("jsonException"," "+e.toString());
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("errorvolley"," "+error.toString());
+                new CustomToast().Show_Toast(getApplicationContext(), view,
+                        "Vérifier votre connexion");
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("phone",getPhone);
+
+
+
+
+                return params;
+            }};
+        reqeu.add(req);
+
     }
 }

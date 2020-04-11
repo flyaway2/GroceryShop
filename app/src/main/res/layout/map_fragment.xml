@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="10"
+    android:orientation="vertical"
+
+    >
+    <com.google.android.gms.maps.MapView
+                android:id="@+id/location_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                />
+
+    <EditText
+        android:id="@+id/adr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="saisir le nom d'adresse..."
+        />
+    <Button
+        android:id="@+id/choisir_adr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choisir_cette_adresse"
+
+
+        />
+
+
+
+
+</LinearLayout>

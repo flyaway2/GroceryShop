@@ -4,14 +4,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar1"
     android:minHeight="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:theme="@style/AppTheme"
-    android:background="?attr/colorPrimary"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    android:background="#ffda79"
+    app:menu="@menu/search_bar"
     >
 
 </androidx.appcompat.widget.Toolbar>

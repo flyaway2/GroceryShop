@@ -3,8 +3,8 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Tawenza épicerie</string>
+    <string name="nav_header_subtitle">0774546204</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -29,11 +29,27 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+
+
+
+
+
     </string>
+    <string name="map_key">AIzaSyBKS8MXX-INDxV4_RxsZ7oNK8fAWBF-aZQ</string>
     <string name="hello_world">Hello world!</string>
     <string name="user">username</string>
     <string name="email">Email Id</string>
-    <string name="passowrd">Password</string>
+    <string name="passowrd">Mot de Passe</string>
     <string name="login">LOGIN</string>
     <string name="show_pwd">Show Password</string>
     <string name="hide_pwd">Hide Password</string>
@@ -49,9 +65,13 @@
     <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
     <string name="signUp">SIGN UP</string>
     <string name="already_user">Already have Account? Login here.</string>
-    <string name="registered_emailid">Please enter your Registered Email Id below:</string>
+    <string name="registered_emailid">entrer votre Numero de Telephone:</string>
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
+    <string name="phone">Numéro de Telephone</string>
     <string name="title_activity_verify_phone">VerifyPhoneActivity</string>
+    <string name="annuler">Annuler</string>
+    <string name="valider">Valider</string>
+    <string name="choisir_cette_adresse">Choisir cette adresse</string>
 
 </resources>

@@ -10,7 +10,6 @@
     tools:context=".Activities.MainActivity"
    android:background="@color/cardview_light_background"
 
-
     >
 
         <LinearLayout
@@ -30,6 +29,8 @@
                     android:layout_height="wrap_content"
 
                     android:background="?attr/colorPrimary"
+                    app:menu="@menu/search_bar"
+
 
                     />
                 <fragment

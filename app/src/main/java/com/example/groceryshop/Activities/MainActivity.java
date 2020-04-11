@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,11 +27,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.groceryshop.Fragments.profile_fragment;
 import com.example.groceryshop.R;
 import com.example.groceryshop.Beans.categorieList;
 import com.example.groceryshop.Beans.produitCommand;
 import com.example.groceryshop.custom.DBUrl;
 import com.example.groceryshop.custom.SaveSharedPreference;
+import com.google.android.gms.common.util.Hex;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
@@ -48,7 +51,9 @@ import java.util.List;
 
 
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     private static final String URL_DATA= DBUrl.URL_DATA.concat("test.php");
  private DrawerLayout drawer;
     private RecyclerView RecView;
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SSP=new SaveSharedPreference(getApplicationContext());
+
         setupNavigation();
         Log.d("mainlog"," "+SSP.getLoggedSattus(getApplicationContext()));
         if(SSP.getLoggedSattus(getApplicationContext())==false){
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#ffda79"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         drawer = findViewById(R.id.drawer);
@@ -166,6 +173,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_Profile:
+                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.profile_fragment,bundle);
+                Log.d("Hello","profile selected");
+                break;
         }
 
         menuItem.setChecked(true);
@@ -179,8 +190,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          if(drawer.isDrawerOpen(GravityCompat.START)){
              drawer.closeDrawer(GravityCompat.START);
         }else{
+             if(profile_fragment.progress_exec==false){
+
+             }
              super.onBackPressed();
          }
+
     }
 
 

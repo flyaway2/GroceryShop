@@ -1,20 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_greyish"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    
+    >
+<LinearLayout
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/white_greyish"
+style="@style/AppTheme"
+
     >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="141dp"
-        android:src="@drawable/profile_pic"></ImageView>
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="141dp"
+    android:src="@drawable/profile_pic"/>
 
-    <androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+
         >
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="Nom:"
+
+            android:layout_margin="4dp"
+
+            />
+        <TextView
+            android:id="@+id/Nom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_weight="4"
+            android:layout_margin="5dp"
+
+            />
+        <ImageButton
+            android:id="@+id/Nom"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_create_black_24dp"
+            android:background="@null"
+
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+
+        >
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="Prenom:"
+
+            android:layout_margin="4dp"
+            android:typeface="sans"
+            />
+        <TextView
+            android:id="@+id/Prenom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_weight="4"
+            android:layout_margin="5dp"
+            />
+        <ImageButton
+            android:id="@+id/Prenom"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_create_black_24dp"
+            android:background="@null"
+
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+
+        >
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="Nom d'Util:"
+
+            android:layout_margin="4dp"
+
+            />
+        <TextView
+            android:id="@+id/Username_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_weight="4"
+            android:layout_margin="5dp"
+            />
+        <ImageView
+            android:id="@+id/Username"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/lock"
+
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+
+        >
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="Mot de Passe:"
+            android:layout_margin="4dp"
+            android:typeface="sans"
+
+            />
+        <TextView
+            android:id="@+id/Password_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_weight="4"
+            android:layout_margin="5dp"
+            android:inputType="textPassword"
+            />
+        <ImageButton
+            android:id="@+id/Password"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_create_black_24dp"
+            android:background="@null"
+
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,265 +205,114 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Nom:"
+            android:text="Numero Tel:"
 
             android:layout_margin="4dp"
-            android:typeface="sans"
-            ></TextView>
+
+            />
+
+        <TextView
+            android:id="@+id/Phone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_weight="4"
+            android:layout_margin="5dp"
+            />
+        <ImageButton
+            android:id="@+id/Phone"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_create_black_24dp"
+            android:background="@null"
+
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Habbaina"
+            android:text="Address:"
+            android:layout_margin="4dp"
+            android:typeface="sans"
+            />
+        <TextView
+            android:id="@+id/Address_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
             android:layout_weight="4"
             android:layout_margin="5dp"
-            ></TextView>
+            />
         <ImageButton
-            android:layout_width="wrap_content"
+            android:id="@+id/Address"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_create_black_24dp"
             android:background="@null"
-            android:layout_weight="1"
-            ></ImageButton>
+
+            />
     </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
+</androidx.cardview.widget.CardView>
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="Email:"
+
+            android:layout_margin="4dp"
+            android:typeface="sans"
+            />
+        <TextView
+            android:id="@+id/Email_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:text=""
+            android:layout_weight="4"
             android:layout_margin="5dp"
+            />
+        <ImageButton
+            android:id="@+id/Email"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_create_black_24dp"
+            android:background="@null"
 
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Prenom:"
+            />
+    </LinearLayout>
 
-                android:layout_margin="4dp"
-                android:typeface="sans"
-                ></TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Amine"
-                android:layout_weight="4"
-                android:layout_margin="5dp"
-                ></TextView>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@null"
-                android:layout_weight="1"
-                ></ImageButton>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Nom d'utilisateur:"
-
-                android:layout_margin="4dp"
-                android:typeface="sans"
-                ></TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="minou"
-                android:layout_weight="4"
-                android:layout_margin="5dp"
-                ></TextView>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@null"
-                android:layout_weight="1"
-                ></ImageButton>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Mot de Passe:"
-                android:layout_margin="4dp"
-                android:typeface="sans"
-
-                ></TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Habbaina"
-                android:layout_weight="4"
-                android:layout_margin="5dp"
-                android:inputType="textPassword"
-                ></TextView>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@null"
-                android:layout_weight="1"
-                ></ImageButton>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Numero Tel:"
-
-                android:layout_margin="4dp"
-
-                ></TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="0774546204"
-                android:layout_weight="4"
-                android:layout_margin="5dp"
-                ></TextView>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@null"
-                android:layout_weight="1"
-                ></ImageButton>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Address:"
-                android:layout_margin="4dp"
-                android:typeface="sans"
-                ></TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Constantine"
-                android:layout_weight="4"
-                android:layout_margin="5dp"
-                ></TextView>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@null"
-                android:layout_weight="1"
-                ></ImageButton>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Email:"
-
-                android:layout_margin="4dp"
-                android:typeface="sans"
-                ></TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="h.amine.dz@hotmail.fr"
-                android:layout_weight="4"
-                android:layout_margin="5dp"
-                ></TextView>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@null"
-                android:layout_weight="1"
-                ></ImageButton>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
 
 
 
@@ -296,3 +324,4 @@
 
 
 </LinearLayout>
+</ScrollView>

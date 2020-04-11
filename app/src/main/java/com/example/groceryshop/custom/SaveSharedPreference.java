@@ -21,12 +21,9 @@ public class SaveSharedPreference {
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "name";
 
-    // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "email";
-    // Address address (make variable public to access from outside)
-    public static final String KEY_Address = "address";
     // password address (make variable public to access from outside)
-    public static final String KEY_password = "address";
+    public static final String KEY_password = "password";
+
     public SaveSharedPreference(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -55,11 +52,23 @@ public class SaveSharedPreference {
         // Storing name in pref
         editor.putString(KEY_NAME, name);
 
-        // Storing email in pref
+        // Storing password in pref
         editor.putString(KEY_password, password);
 
         // commit changes
         editor.commit();
+    }
+    public void setPassword(String password){
+        editor.putString(KEY_password,password).commit();
+    }
+    public String getUsername(){
+        return pref.getString(KEY_NAME,"empty");
+
+    }
+    public String getPassword(){
+        Log.d("passZ",""+PreferenceManager.getDefaultSharedPreferences(context).getString(KEY_password,"fuckyou"));
+        return pref.getString(KEY_password,"empty");
+
     }
     public void logoutUser() {
         // Clearing all data from Shared Preferences

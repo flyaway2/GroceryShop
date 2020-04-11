@@ -11,6 +11,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,6 +41,7 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +51,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
     private static  String URL_DATA_UserAvail= DBUrl.URL_DATA;
     private static  String URL_DATA_PhoneAvail= DBUrl.URL_DATA.concat("signup.php?");
     private static View view;
@@ -63,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     String getPassword;
     String getConfirmPassword;
     String getUsername;
+    private NavController navController;
     private static final int SMS_CONSENT_REQUEST = 2;
     // Set to an unused request code
     private final BroadcastReceiver smsVerificationReceiver = new BroadcastReceiver() {
@@ -114,8 +120,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signUpButton = findViewById(R.id.signUpBtn);
         login = findViewById(R.id.already_user);
 
-
-
         // Setting text selector over textviews
         XmlResourceParser xrp;
         xrp = getResources().getXml(R.drawable.text_selector);
@@ -131,6 +135,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     }
+
     // Set Listeners
     private void setListeners() {
         signUpButton.setOnClickListener(this);
@@ -231,15 +236,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             // Else do signup or do your stuff
         else {
-            Toast.makeText(getApplicationContext(), "Do SignUp.", Toast.LENGTH_LONG)
-                    .show();
+
 
             UsernameAvailability();
         }
 
     }
     private void NextAct(){
-        Intent intent = new Intent(getApplicationContext(), VerifyPhoneActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
         intent.putExtra("nom", getNom);
         intent.putExtra("prenom", getPrenom);
         intent.putExtra("username", getUsername);
@@ -288,6 +292,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.toString());
+                        Toast.makeText(getApplicationContext(),"Vérifier votre connexion",Toast.LENGTH_LONG);
                     }
                 }
         );
@@ -335,6 +340,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         );
         queue.add(getRequest);
     }
+
+
 
 
 }
