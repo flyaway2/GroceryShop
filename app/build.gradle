@@ -11,6 +11,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -46,6 +49,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation ( 'com.github.thekhaeng:pushdown-anim-click:1.1.1' ){
+        exclude group: 'com.android.support'
+    }
+    implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
+
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+
+    implementation 'com.jakewharton:process-phoenix:2.0.0'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
+    implementation 'com.github.baoyachi:StepView:1.9'
+    implementation 'com.github.vinaygopinath:StepView:2.0.1'
+    implementation 'com.google.firebase:firebase-messaging:20.2.0'
 
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Grocery Shop</string>
+    <string name="accueil">الرئيسسة</string>
+    <string name="panier">سلة</string>
+    <string name="params">إعدادات</string>
+    <string name="credit">كريدي</string>
+    <string name="choisir_cette_adresse" >Choisir cette adresse</string>
+    <string name="retirer">إزالة</string>
+
+</resources>

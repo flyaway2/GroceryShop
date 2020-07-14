@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/Command"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+
+
+    app:cardCornerRadius="15dp"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shapecommand"
+
+        >
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="100"
+        android:layout_margin="8dp"
+
+
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:orientation="vertical"
+
+            >
+            <TextView
+                android:id="@+id/NumCom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Commande n°19975"
+
+                />
+            <TextView
+                android:id="@+id/NumProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20 Articles"
+                android:textSize="12dp"
+
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/statut"
+                android:layout_marginBottom="5dp"
+                android:textColor="#7f8fa6"
+
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/DelivrerIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="left"
+                    android:src="@drawable/livre"
+                    android:layout_marginRight="10dp"
+                    />
+                <TextView
+                    android:id="@+id/Delivrer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="livrée"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="36dp"
+            android:background="@color/black"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="10dp"
+
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:orientation="vertical"
+
+            >
+            <TextView
+                android:id="@+id/Date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2020-03-01"
+                android:textSize="14sp"
+               android:gravity="right"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/horaire"
+                android:textColor="#7f8fa6"
+                android:layout_marginBottom="5dp"
+
+                />
+            <TextView
+                android:id="@+id/Disp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09:00:00 - 10:00:00"
+
+
+                />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

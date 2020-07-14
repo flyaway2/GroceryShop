@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Grocery Shop</string>
+    <string name="accueil">الصفحة الرئيسية</string>
+    <string name="panier">سلة</string>
+    <string name="params">إعدادات</string>
+    <string name="credit">كريدي</string>
+    <string name="choisir_cette_adresse" >اختيار العنوان</string>
+    <string name="retirer">إزالــة</string>
+    <string name="profil">الصفحة الشخصية</string>
+    <string name="Profil_Desc">تعديل المعلومات الشخصية</string>
+    <string name="change_language">اللغة</string>
+    <string name="Change_Lang_Desc">اختيار اللغة</string>
+    <string name="log_out">تسجيل الخروج</string>
+    <string name="log_out_Desc">تسجيل الخروج من حسابك الحالي</string>
+    <string name="AjouterPanier">إضافة إلى السلة</string>
+    <string name="Accueil">الصفحة الرئيسية</string>
+    <string name="Panier">الـســلـة</string>
+    <string name="Address">العنوان</string>
+    <string name="Error">خطأ</string>
+    <string name="Parametre">إعـدادات</string>
+    <string name="total">المجموع</string>
+    <string name="valider">تأكيد</string>
+    <string name="annuler" >إلغـاء</string>
+    <string name="Nom" >لقـب</string>
+    <string name="Prenom">اســم</string>
+    <string name="phone" >رقـم الهـاتـف</string>
+    <string name="user" >اسـم المستخدم</string>
+    <string name="email">بريد إلكتروني</string>
+    <string name="passowrd" >رمز السر</string>
+    <string name="DateNais">تاريخ الولادة</string>
+    <string name="genre">جنـس</string>
+    <string name="numclient">رقم الزبون</string>
+    <string name="email_incorrect">بريد إلكتروني خاطئ</string>
+    <string name="balance">رصيد حسابك</string>
+    <string name="creditfrag">رصيدك</string>
+    <string name="arabic">العربية</string>
+    <string name="french">الفرنسية</string>
+    <string name="LangChoice">تغيير اللغة</string>
+    <string name="mode_pay">طريقة الدفع</string>
+    <string name="mes_commandes">طلباتي</string>
+
+    <string name="login" >تسجيل الدخول</string>
+    <string name="show_pwd" >اظهار كلمة المرور</string>
+    <string name="hide_pwd">اخفاء كلمة المرور</string>
+    <string name="forgot" >هل نسيت كلمة المرور ؟</string>
+    <string name="newUser" >"لا تملك حساب ؟ اضغط هنا."</string>
+
+    <string name="registered_emailid" >أدخل رقم هاتفك .</string>
+
+    <string name="submit" >تـأكيد</string>
+    <string name="back" >عـودة</string>
+
+    <string name="inscription">تسجيل حساب جديد</string>
+    <string name="nom_d_utilisateur">اسم المستخدم</string>
+    <string name="numero_de_telephone">رقم الهاتف</string>
+    <string name="inscrire">تسجيل</string>
+    <string name="confirmPassword" >اعادة كتابة كلمة المرور</string>
+    <string name="already_user" >هل تملك حساب من قبل ؟ اضغط هنا.</string>
+    <string name="saisir_le_nom_d_adresse">ادخل العنوان</string>
+
+    <string name="attrendre_le_code">انتظر وصول الرقم</string>
+    <string name="enter_verification_code">ادخل رقم التحقق</string>
+
+
+    <string name="PhoneExist">رقم الهاتف موجود مسبقا</string>
+    <string name="UsernameExist">اسم المستخدم غير متاح</string>
+    <string name="TelInvalid">رقم الهاتف غير صحيح .</string>
+    <string name="AllChamp">جميع الخانات اجبارية .</string>
+    <string name="EmailInvalid">بريد إلكتروني غير صحيح</string>
+    <string name="DiffPass">كلمة السر غير مطابقة</string>
+    <string name="ConxBleme">تحقق من وجود الأنترنت</string>
+    <string name="EntrezNum">ادخل رق الهاتف .</string>
+    <string name="PhoneNExist">رقم الهاتف غير موجود .</string>
+
+    <string name="service_de_livraison">خدمة الإيصال</string>
+    <string name="receipt">الإيصــال</string>
+    <string name="article">المنتوج</string>
+    <string name="prix">الثمن</string>
+    <string name="frais_livraison">تكاليف التوصيل</string>
+    <string name="totalGen">مجموع الإجمالي</string>
+
+    <string name="modPay">اختيار طريقة الدفع</string>
+    <string name="AddressExp">عنوان الإرسال</string>
+    <string name="Choisir_Horaire">اختيار ساعة التوصيل</string>
+
+    <string name="OnDelivery">دفع عند التوصيل</string>
+    <string name="portefeuille">محفظة النقود</string>
+    <string name="OldAddress">عنوانك الأسبق</string>
+    <string name="NewAddress">اختيار عنوان جديد</string>
+    <string name="AddNewAddress">اضافة عنوان جديد</string>
+    <string name="horaire">توقيت الإيصال</string>
+    <string name="statut">الوضع</string>
+
+    <string name="NomIncorrect">لقب غير صحيح</string>
+    <string name="PrenomIncorrect">اسم غير صحيح</string>
+    <string name="ChampVide">خانة فارغة</string>
+
+    <string name="Choisir_liv">اختيار توقيت التوصيل</string>
+
+    <string name="AdressExpTitle">عنوان الإيصال</string>
+    <string name="TempLiv">توقيت الإيصال</string>
+    <string name="WebHost">https://grocery1o1.000webhostapp.com/php/Fr/Categorie.php</string>
+
+    <string name="panier_vide">سلتك فارغة</string>
+    <string name="NoNetwork">لاتوجد أنترنت</string>
+    <string name="NoNetwork_Msg">يتعذر علينا الإتصال بالأنترنت يرجى اعادة المحاولة</string>
+    <string name="Refresh">أعد المحاولة</string>
+
+    <string name="login_incorrect">اسم المستخدم أو كلمة المرور خاطئ</string>
+
+    <string name="changer_mot_de_passe">تغيير كلمة المرور</string>
+
+    <string name="ResendCode">اعادة ارسال الرقم</string>
+    <string name="InvalidForm">صيغة الرقم غير صحيحة</string>
+    <string name="no_product">هذه الفئة لا تحتوي على منتوجات</string>
+    <string-array name="arrayPays">
+        <item>الجزائر</item>
+    </string-array>
+    <string-array name="arrayWilaya">
+        <item>غرداية</item>
+    </string-array>
+    <string-array name="arrayDaira">
+        <item>بنورة</item>
+    </string-array>
+</resources>

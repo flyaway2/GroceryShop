@@ -48,7 +48,7 @@ public class panierAdapter extends ArrayAdapter<produitCommand> implements View.
      Context context;
      LayoutInflater inflter;
      ViewGroup footer;
-    Spinner sp;
+
     private DatabaseHelpler db;
     private produitCommand pc;
     private ArrayList<produitCommand> commandList;
@@ -58,7 +58,7 @@ public class panierAdapter extends ArrayAdapter<produitCommand> implements View.
     private ViewGroup vg;
     private ViewGroup listviewContainer;
     private CheckBox check_prod;
-    private TextView empty_text;
+    private TextView empty_text,Qte;
     private Button valider;
     private String URL_DATA;
     private SaveSharedPreference SSP;
@@ -101,12 +101,12 @@ public class panierAdapter extends ArrayAdapter<produitCommand> implements View.
         check_prod=view.findViewById(R.id.check_prod);
         check_prod.setTag("check"+position);
         codeProd=view.findViewById(R.id.codeProd);
-        nom=view.findViewById(R.id.Com_Nom);
-        marque=view.findViewById(R.id.Marq);
-        prix=view.findViewById(R.id.Com_Prix);
-        size=view.findViewById(R.id.Com_Size);
-        sp=view.findViewById(R.id.Com_Qte);
-        prix_total_prod=view.findViewById(R.id.totalProd);
+        nom=view.findViewById(R.id.Nom);
+        marque=view.findViewById(R.id.Marque);
+        prix=view.findViewById(R.id.Prix);
+        size=view.findViewById(R.id.SizeDesc);
+        Qte=view.findViewById(R.id.Qte);
+        prix_total_prod=view.findViewById(R.id.Total);
         prix_total_prod.setTag("prod"+position);
 
        codeProd.setText(pc.getCodeProd());
@@ -120,83 +120,15 @@ public class panierAdapter extends ArrayAdapter<produitCommand> implements View.
 
 
 
-       final int prix_total=pc.getPrix()*(pc.getQte());
+       final float prix_total=pc.getPrix()*(pc.getQte());
        Log.d("prixtotal"," "+pc.getPrix()+" "+prix_total+" ");
 
-       prix_total_prod.setText(Integer.toString(pc.getPrix()*(pc.getQte())));
-       prix.setText(Integer.toString(pc.getPrix()));
+       prix_total_prod.setText(Float.toString(pc.getPrix()*(pc.getQte())));
+       prix.setText(Float.toString(pc.getPrix()));
 
 
        size.setText(pc.getSize());
 
-        ArrayList<Integer> qteList=new ArrayList<>();
-        qteList.add(1);qteList.add(2);qteList.add(3);qteList.add(4);qteList.add(5);
-        qteList.add(6);qteList.add(7);qteList.add(8);qteList.add(9);qteList.add(10);
-        qteList.add(11);qteList.add(12);qteList.add(13);qteList.add(14);qteList.add(15);
-        qteList.add(16);qteList.add(17);qteList.add(18);qteList.add(19);qteList.add(20);
-        if(sp!=null){
-            ArrayAdapter<Integer> SpItem=new ArrayAdapter<Integer>(context,android.R.layout.simple_spinner_item,qteList);
-            SpItem.setDropDownViewResource(android.R.layout.simple_spinner_item);
-            sp.setAdapter(SpItem);
-            Log.d("spinner qte"," "+pc.getQte());
-            sp.setSelection(pc.getQte()-1);
-            sp.setTag(position);
-            total=footer.findViewById(R.id.total);
-            valider=footer.findViewById(R.id.valider);
-
-            sum=sum+(pc.getPrix()*(pc.getQte()-1));
-
-
-            total.setText(Integer.toString(sum));
-
-            valider.setOnClickListener(this);
-
-            sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                  Cursor res2=db.getAllData();
-                    TextView prodtotal=listviewContainer.findViewWithTag("prod"+parent.getTag());
-                    Log.d("spinnerclick",""+parent.getTag()+" "+position);
-
-                  pc=commandList.get(Integer.parseInt(parent.getTag().toString()));
-
-                  int prix_totals=pc.getPrix()*(position+1) ;
-                    Log.d("tag3lamantag",""+listviewContainer.findViewWithTag("prod0"));
-                  if(prodtotal!=null){
-                      prodtotal.setText(Integer.toString(prix_totals));
-                      Log.d("tag3lamantag",""+prodtotal+" "+prix_total+" "+position+" "+pc.getPrix());
-                  }
-
-
-                    int sum1=0;
-                      while (res2.moveToNext()){
-                          if(res2.getString(0).equals(pc.getCodeProd()))
-                          {
-                              db.updateQte(res2.getString(0),position+1);
-                              sum1= res2.getInt(4)*(position+1)+sum1;
-                          }else{
-                              sum1= res2.getInt(4)*res2.getInt(6)+sum1;
-                          }
-                          Log.d("totalgen",""+sum1+" "+res2.getInt(4)+" "+res2.getInt(6));
-
-
-
-
-                      }
-                      total.setText(Integer.toString(sum1));
-
-                  }
-
-
-
-
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-        }
 
 
        return view;
@@ -205,7 +137,7 @@ public void removeProd(boolean all){
         Log.d("removeprod"," ");
         if(all==true){
             commandList.clear();
-            db.deleteAll();
+            db.deleteAll(SSP.getUsername());
         }else
         {
             for(int i=0;i<commandList.size();i++)
@@ -214,7 +146,7 @@ public void removeProd(boolean all){
                 Log.d("boxtag"," "+box.getTag()+" "+commandList.size());
                 if(box.isChecked())
                 {
-                    db.deleteData(commandList.get(i).getCodeProd());
+                    db.deleteData(commandList.get(i).getCodeProd(),SSP.getUsername());
                     commandList.remove(i);
                 }
             }

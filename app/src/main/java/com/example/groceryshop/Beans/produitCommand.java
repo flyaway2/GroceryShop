@@ -2,6 +2,7 @@ package com.example.groceryshop.Beans;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.ContactsContract;
 
 public class produitCommand implements Parcelable {
 
@@ -21,10 +22,18 @@ public class produitCommand implements Parcelable {
 
     private String Nom;
     private String Marque;
-    private int Prix;
+    private float Prix;
     private String size;
     private int Qte;
     private String CodeProd;
+    private float PrixRemise;
+    private int QteRemise;
+    private float Promotion;
+    private String Img;
+    private String NomAr;
+    private String MarqueAr;
+    private String sizeAr;
+
 
     public String getCodeProd() {
         return CodeProd;
@@ -50,7 +59,7 @@ public class produitCommand implements Parcelable {
         Marque = marque;
     }
 
-    public int getPrix() {
+    public float getPrix() {
         return Prix;
     }
 
@@ -76,13 +85,21 @@ public class produitCommand implements Parcelable {
 
 
 
-    public produitCommand(String nom, String marque, int prix, String size, int qte,String codeProd) {
+    public produitCommand(String nom, String marque, float prix, String size, int qte,String codeProd,int QteRemise,float
+                          PrixRemise,float Promotion,String Img,String NomAr,String MarqueAr,String sizeAr) {
+        this.Img= Img;
         Nom = nom;
         Marque = marque;
         Prix = prix;
         this.size = size;
         Qte = qte;
         this.CodeProd=codeProd;
+        this.QteRemise=QteRemise;
+        this.PrixRemise=PrixRemise;
+        this.Promotion=Promotion;
+        this.NomAr=NomAr;
+        this.MarqueAr=MarqueAr;
+        this.sizeAr=sizeAr;
     }
     protected produitCommand(Parcel in){
         Nom=in.readString();
@@ -90,8 +107,74 @@ public class produitCommand implements Parcelable {
         Prix=in.readInt();
         size=in.readString();
         Qte=in.readInt();
+        Promotion=in.readFloat();
+        PrixRemise=in.readFloat();
+        QteRemise=in.readInt();
+        Img=in.readString();
+        NomAr=in.readString();
+        MarqueAr=in.readString();
+        sizeAr=in.readString();
     }
 
+    public String getImg() {
+        return Img;
+    }
+
+    public void setImg(String img) {
+        Img = img;
+    }
+
+    public String getNomAr() {
+        return NomAr;
+    }
+
+    public String getMarqueAr() {
+        return MarqueAr;
+    }
+
+    public String getSizeAr() {
+        return sizeAr;
+    }
+
+    public void setNomAr(String nomAr) {
+        NomAr = nomAr;
+    }
+
+    public void setMarqueAr(String marqueAr) {
+        MarqueAr = marqueAr;
+    }
+
+    public void setSizeAr(String sizeAr) {
+        this.sizeAr = sizeAr;
+    }
+
+    public float getPrixRemise() {
+        return PrixRemise;
+    }
+
+    public int getQteRemise() {
+        return QteRemise;
+    }
+
+    public float getPromotion() {
+        return Promotion;
+    }
+
+    public void setPrix(float prix) {
+        Prix = prix;
+    }
+
+    public void setPrixRemise(float prixRemise) {
+        PrixRemise = prixRemise;
+    }
+
+    public void setQteRemise(int qteRemise) {
+        QteRemise = qteRemise;
+    }
+
+    public void setPromotion(float promotion) {
+        Promotion = promotion;
+    }
 
     @Override
     public int describeContents() {
@@ -103,7 +186,14 @@ public class produitCommand implements Parcelable {
         dest.writeString(this.Nom);
         dest.writeString(this.Marque);
         dest.writeString(this.size);
-        dest.writeInt(this.Prix);
+        dest.writeFloat(this.Prix);
         dest.writeInt(this.Qte);
+        dest.writeInt(this.QteRemise);
+        dest.writeFloat(this.PrixRemise);
+        dest.writeFloat(this.Promotion);
+        dest.writeString(this.Img);
+        dest.writeString(this.NomAr);
+        dest.writeString(this.MarqueAr);
+        dest.writeString(this.sizeAr);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.groceryshop.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
@@ -38,13 +39,14 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
     private static EditText emailId;
     private static TextView submit, back;
     private String URL_DATAUsername,getUsername,getPhone;
+    private ProgressDialog progressdialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
         setContentView(R.layout.forgetpassword);
-        URL_DATAUsername= DBUrl.URL_DATA.concat("getUsername.php?");
+        URL_DATAUsername= DBUrl.URL_DATA_Client;
         overridePendingTransition(R.anim.right_enter, R.anim.left_out);
         initViews();
         setListeners();
@@ -103,8 +105,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
         // First check if email id is not null else show error toast
         if (getEmailId.equals("") || getEmailId.length() == 0)
 
-            new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "entrer votre Numéro.");
+            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.EntrezNum));
 
             // Else submit email id and fetch passwod or do your stuff
         else
@@ -113,8 +114,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
             Pattern p=Pattern.compile(Utils.regExPhone);
             Matcher m=p.matcher(getPhone);
             if(!m.matches()){
-                new CustomToast().Show_Toast(getApplicationContext(), view,
-                        "Numéro Invalide.");
+                new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.TelInvalid));
             }else
             {
                 getUsername();
@@ -128,7 +128,10 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
 
     public void getUsername(){
         RequestQueue reqeu= VolleySingleton.getInstance(this).getRequestQueue();
-
+        progressdialog = new ProgressDialog(this);
+        progressdialog.setMessage("loading..");
+        progressdialog.setCanceledOnTouchOutside(false);
+        progressdialog.show();
         StringRequest req;
 
         req = new StringRequest(Request.Method.POST, URL_DATAUsername, new Response.Listener<String>() {
@@ -139,10 +142,11 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
 
                     if(json.length()==0){
 
-                        new CustomToast().Show_Toast(getApplicationContext(), view,
-                                "Le numéro n'existe pas");
+                        new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.PhoneNExist));
+                        progressdialog.dismiss();
                     }else
                     {
+                        progressdialog.dismiss();
 
                         JSONObject client = json.getJSONObject(0);
                         getUsername = client.getString("username");
@@ -162,8 +166,8 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("errorvolley"," "+error.toString());
-                new CustomToast().Show_Toast(getApplicationContext(), view,
-                        "Vérifier votre connexion");
+                progressdialog.dismiss();
+                new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.ConxBleme));
 
             }
         }) {
@@ -171,6 +175,9 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
+                params.put("DBUsername",DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+                params.put("query","SelectPhone");
                 params.put("phone",getPhone);
 
 

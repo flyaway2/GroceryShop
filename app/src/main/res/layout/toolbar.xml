@@ -8,7 +8,6 @@
     android:minHeight="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
     android:background="#ffda79"
     app:menu="@menu/search_bar"
     >

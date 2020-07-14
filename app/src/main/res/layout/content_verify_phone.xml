@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:text="Attrendre le code"
+            android:text="@string/attrendre_le_code"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:textColor="@color/colorPrimary" />
 
@@ -66,7 +66,7 @@
             android:layout_marginTop="10dp"
             android:digits="0123456789"
             android:drawablePadding="10dp"
-            android:hint="enter verification code"
+            android:hint="@string/enter_verification_code"
             android:inputType="phone"
             android:maxLength="10" />
 
@@ -78,7 +78,18 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:background="@color/colorPrimaryDark"
-            android:text="Sign In"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="#cdd8f1" />
+        <Button
+            android:id="@+id/ResendCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonSignIn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/ResendCode"
             android:textAllCaps="false"
             android:textColor="#cdd8f1" />
 

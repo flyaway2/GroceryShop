@@ -1,17 +1,42 @@
 package com.example.groceryshop.Beans;
 
 public class categorieList {
+    private int ID;
     private String Nom;
+    private String NomAr;
     private String image_url;
 
 
     private String query_url;
 
-    public categorieList(String nom,String Image_url) {
+    public categorieList(int ID,String nom,String nomAr,String Image_url) {
+        this.ID=ID;
         Nom = nom;
         image_url=Image_url;
+        NomAr=nomAr;
 
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getNomAr() {
+        return NomAr;
+    }
+
+    public void setNomAr(String nomAr) {
+        NomAr = nomAr;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public String getQuery_url() {
         return query_url;
     }

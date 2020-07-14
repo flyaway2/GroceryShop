@@ -1,5 +1,6 @@
 package com.example.groceryshop.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -27,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.groceryshop.R;
+import com.example.groceryshop.custom.CustomToast;
 import com.example.groceryshop.custom.DBUrl;
 import com.example.groceryshop.custom.SaveSharedPreference;
 import com.example.groceryshop.custom.VolleySingleton;
@@ -45,12 +47,14 @@ public class NewPasswordActivity extends AppCompatActivity implements View.OnCli
     private String URL_DATA,getPhone,getUsername;
     private SaveSharedPreference SSP;
     private CheckBox showPassword;
+    private View view;
+    private ProgressDialog progressdialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_password);
         SSP=new SaveSharedPreference(this);
-        URL_DATA= DBUrl.URL_DATA.concat("modifierProfile.php?");
+        URL_DATA= DBUrl.URL_DATA_Client;
 
         getPhone=getIntent().getStringExtra("phone");
        getUsername=getIntent().getStringExtra("username");
@@ -122,17 +126,28 @@ public class NewPasswordActivity extends AppCompatActivity implements View.OnCli
 
     public void changePassword()
     {
+        progressdialog = new ProgressDialog(this);
+        progressdialog.setMessage("loading..");
+        progressdialog.setCanceledOnTouchOutside(false);
+        progressdialog.show();
         RequestQueue reqeu = VolleySingleton.getInstance(this).getRequestQueue();
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL_DATA,
                 new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response) {
+                        progressdialog.dismiss();
                         // response
                         Log.d("Response", response);
                         SSP.createLoginSession(getUsername,New_Pass.getText().toString());
+
+                        finishAffinity();
                         Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
                         startActivity(intent);
+                        finish();
                     }
                 },
                 new Response.ErrorListener()
@@ -140,7 +155,9 @@ public class NewPasswordActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Log.d("Error.Response","");
+                        Log.d("Error.Response"," "+error);
+                        progressdialog.dismiss();
+                        new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.ConxBleme));
                     }
                 }
         ) {
@@ -148,8 +165,10 @@ public class NewPasswordActivity extends AppCompatActivity implements View.OnCli
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("username",getUsername);
-                params.put("iden","password");
+                params.put("DBUsername",DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+                params.put("Username",getUsername);
+                params.put("query","UpdatePassword");
                 params.put("value",New_Pass.getText().toString());
 
 

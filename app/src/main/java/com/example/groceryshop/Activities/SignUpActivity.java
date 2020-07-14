@@ -1,17 +1,17 @@
 package com.example.groceryshop.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,13 +19,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,10 +35,6 @@ import com.example.groceryshop.R;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -53,9 +45,9 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
     private static  String URL_DATA_UserAvail= DBUrl.URL_DATA;
-    private static  String URL_DATA_PhoneAvail= DBUrl.URL_DATA.concat("signup.php?");
+    private static  String URL_DATA_PhoneAvail;
     private static View view;
-    private static EditText Nom,Prenom,Username, emailId, mobileNumber, location,
+    private static EditText Nom,Prenom,Username, emailId, mobileNumber,
             password, confirmPassword;
     private static TextView login;
     private static Button signUpButton;
@@ -64,10 +56,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     String getPrenom;
     String getEmailId;
     String getMobileNumber;
-    String getLocation;
     String getPassword;
     String getConfirmPassword;
     String getUsername;
+    private ProgressDialog progressdialog;
     private NavController navController;
     private static final int SMS_CONSENT_REQUEST = 2;
     // Set to an unused request code
@@ -114,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Username=findViewById(R.id.Username);
         emailId = findViewById(R.id.userEmailId);
         mobileNumber = findViewById(R.id.mobileNumber);
-        location = findViewById(R.id.location);
+
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirmPassword);
         signUpButton = findViewById(R.id.signUpBtn);
@@ -154,8 +146,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 Username.setBackgroundColor(green);
                 password.setBackgroundColor(green);
                 emailId.setBackgroundColor(green);
-                location.setBackgroundColor(green);
                 mobileNumber.setBackgroundColor(green);
+                confirmPassword.setBackgroundColor(green);
 
 
                 checkValidation();
@@ -184,7 +176,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         getMobileNumber = mobileNumber.getText().toString();
 
-        getLocation = location.getText().toString();
 
         getPassword = password.getText().toString();
 
@@ -202,32 +193,52 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 || getPrenom.equals("") || getPrenom.length()==0
                 || getEmailId.equals("") || getEmailId.length() == 0
                 || getMobileNumber.equals("") || getMobileNumber.length() == 0
-                || getLocation.equals("") || getLocation.length() == 0
                 || getPassword.equals("") || getPassword.length() == 0
-                || getConfirmPassword.equals("")
-                || getConfirmPassword.length() == 0)
-
-            new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "All fields are required.");
+                || getConfirmPassword.equals("") || getConfirmPassword.length() == 0)
+        {
+            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.AllChamp));
+            if(getNom.equals("") || getNom.length() == 0 )
+            {
+                Nom.setBackgroundColor(Color.RED);
+            }
+            if(getPrenom.equals("") || getPrenom.length()==0 )
+            {
+                Prenom.setBackgroundColor(Color.RED);
+            }
+            if(getEmailId.equals("") || getEmailId.length() == 0)
+            {
+                emailId.setBackgroundColor(Color.RED);
+            }
+             if(getMobileNumber.equals("") || getMobileNumber.length() == 0 )
+            {
+                mobileNumber.setBackgroundColor(Color.RED);
+            }
+             if(getConfirmPassword.equals("") || getConfirmPassword.length() == 0 )
+            {
+                confirmPassword.setBackgroundColor(Color.RED);
+            }
+             if(getPassword.equals("") || getPassword.length() == 0)
+            {
+                password.setBackgroundColor(Color.RED);
+            }
 
             // Check if email id valid or not
+        }
+
         else if (!m2.matches()){
-            new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "Numero de telephone invalide.");
+            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.TelInvalid));
             mobileNumber.setBackgroundColor(Color.RED);
         }
 
 
         else if (!m.find()) {
-            new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "Email Invalide.");
+            new CustomToast().Show_Toast(getApplicationContext(), view, getString(R.string.EmailInvalid));
             emailId.setBackgroundColor(Color.RED);
 
             // Check if both password should be equal
         }
         else if (!getConfirmPassword.equals(getPassword)){
-            new CustomToast().Show_Toast(getApplicationContext(), view,
-                    "Les mot de passe sont diff.");
+            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.DiffPass));
             password.setBackgroundColor(Color.RED);
         }
 
@@ -250,15 +261,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         intent.putExtra("password", getPassword);
         intent.putExtra("phone", getMobileNumber);
         intent.putExtra("email", getEmailId);
-        intent.putExtra("address", getLocation);
 
         startActivity(intent);
     }
 
     private void UsernameAvailability(){
-        URL_DATA_UserAvail=DBUrl.URL_DATA.concat("useravail.php?username="+getUsername);
+        progressdialog = new ProgressDialog(this);
+        progressdialog.setMessage("loading...");
+        progressdialog.setCanceledOnTouchOutside(false);
+        progressdialog.show();
+        URL_DATA_UserAvail=DBUrl.URL_DATA_Client;
         RequestQueue queue= Volley.newRequestQueue(this);
-        StringRequest getRequest = new StringRequest(Request.Method.GET, URL_DATA_UserAvail,
+        StringRequest getRequest = new StringRequest(Request.Method.POST, URL_DATA_UserAvail,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -275,8 +289,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             exist=true;
                         }
                         if(exist){
-                            new CustomToast().Show_Toast(getApplicationContext(), view,
-                                    "Username existe déja.");
+                            progressdialog.dismiss();
+                            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.UsernameExist));
                             Username.setBackgroundColor(Color.RED);
                         }else{
                              PhoneAvailability();
@@ -292,17 +306,34 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.toString());
+                        progressdialog.dismiss();
                         Toast.makeText(getApplicationContext(),"Vérifier votre connexion",Toast.LENGTH_LONG);
+                        new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.ConxBleme));
+
                     }
                 }
-        );
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("DBUsername", DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+                params.put("query","CheckUser");
+                params.put("Username",Username.getText().toString());
+
+
+
+                return params;
+            }
+        };
         queue.add(getRequest);
 
     }
     public void PhoneAvailability(){
-        URL_DATA_PhoneAvail=DBUrl.URL_DATA.concat("phoneavail.php?phone="+getMobileNumber);
+        URL_DATA_PhoneAvail=DBUrl.URL_DATA_Client;
         RequestQueue queue= Volley.newRequestQueue(this);
-        StringRequest getRequest = new StringRequest(Request.Method.GET, URL_DATA_PhoneAvail,
+        StringRequest getRequest = new StringRequest(Request.Method.POST, URL_DATA_PhoneAvail,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -310,6 +341,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         // response
                         Log.d("Response", response);
                         try {
+                            progressdialog.dismiss();
                             JSONArray json = new JSONArray(response);
 
                         Boolean exist=false;
@@ -317,8 +349,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             exist=true;
                         }
                         if(exist){
-                            new CustomToast().Show_Toast(getApplicationContext(), view,
-                                    "Numero de Telephone existe déja.");
+                            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.PhoneExist));
                             mobileNumber.setBackgroundColor(Color.RED);
                         }else{
                             NextAct();
@@ -335,9 +366,25 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.toString());
+                        progressdialog.dismiss();
+                        new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.ConxBleme));
                     }
                 }
-        );
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("DBUsername", DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+                params.put("query","SelectPhone");
+                params.put("phone",mobileNumber.getText().toString());
+
+
+
+                return params;
+            }
+        };
         queue.add(getRequest);
     }
 

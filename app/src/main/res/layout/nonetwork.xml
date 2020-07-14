@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pas de connexion"
+        android:text="@string/NoNetwork"
         android:textSize="30dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Un problème de connexion s'est produit, veuillez réessayer"
+        android:text="@string/NoNetwork_Msg"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         />
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Réessayez"
+        android:text="@string/Refresh"
         android:textSize="20sp"
         />
 

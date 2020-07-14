@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:backgroundTint="#CAD3C8"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        app:contentInsetStart="0dp"
+
+
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center"
+               android:background="@drawable/shape_qte"
+               android:layout_margin="0dp"
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="TOTAL"
+                   android:gravity="left"
+                   android:textColor="#eb2f06"
+                   android:layout_marginRight="20dp"
+                   />
+               <TextView
+                   android:id="@+id/TotalGen"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="4000.00"
+                   android:layout_gravity="right"
+                   android:textColor="#eb2f06"
+                   android:layout_marginRight="10dp"
+                   />
+           </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="valider"
+                android:layout_margin="2dp"
+
+                />
+        </LinearLayout>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

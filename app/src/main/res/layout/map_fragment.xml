@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppTheme2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,6 +8,87 @@
     android:orientation="vertical"
 
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_weight="10"
+           >
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Pays"
+              android:paddingLeft="5dp"
+               />
+           <androidx.appcompat.widget.AppCompatSpinner
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:entries="@array/arrayPays"
+
+
+               />
+       </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="36dp"
+            android:background="@color/black"
+            android:layout_gravity="center"
+            />
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         android:layout_weight="10"
+         >
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="Wilaya"
+
+             android:paddingLeft="5dp"
+             />
+         <androidx.appcompat.widget.AppCompatSpinner
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:entries="@array/arrayWilaya"
+
+
+
+             />
+     </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="36dp"
+            android:background="@color/black"
+            android:layout_gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="10"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daira"
+                android:paddingLeft="5dp"
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/arrayDaira"
+
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
     <com.google.android.gms.maps.MapView
                 android:id="@+id/location_map"
                 android:layout_width="match_parent"
@@ -18,13 +100,16 @@
         android:id="@+id/adr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="saisir le nom d'adresse..."
+        android:hint="@string/saisir_le_nom_d_adresse"
+        android:singleLine="true"
+        android:visibility="gone"
         />
     <Button
         android:id="@+id/choisir_adr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choisir_cette_adresse"
+        android:layout_margin="5dp"
 
 
         />

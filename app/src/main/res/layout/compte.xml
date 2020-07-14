@@ -36,7 +36,7 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Nom:"
+            android:text="@string/Nom"
 
             android:layout_margin="4dp"
 
@@ -79,7 +79,7 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Prenom:"
+            android:text="@string/Prenom"
 
             android:layout_margin="4dp"
             android:typeface="sans"
@@ -121,7 +121,7 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Nom d'Util:"
+            android:text="@string/user"
 
             android:layout_margin="4dp"
 
@@ -163,7 +163,7 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Mot de Passe:"
+            android:text="@string/passowrd"
             android:layout_margin="4dp"
             android:typeface="sans"
 
@@ -205,7 +205,7 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Numero Tel:"
+            android:text="@string/phone"
 
             android:layout_margin="4dp"
 
@@ -247,7 +247,7 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Address:"
+            android:text="@string/Address"
             android:layout_margin="4dp"
             android:typeface="sans"
             />
@@ -272,7 +272,50 @@ style="@style/AppTheme"
 
 </androidx.cardview.widget.CardView>
 
-<androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:text="@string/email"
+
+                android:layout_margin="4dp"
+                android:typeface="sans"
+                />
+            <TextView
+                android:id="@+id/Email_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:text=""
+                android:layout_weight="4"
+                android:layout_margin="5dp"
+                />
+            <ImageButton
+                android:id="@+id/Email"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_create_black_24dp"
+                android:background="@null"
+
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -288,13 +331,13 @@ style="@style/AppTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="20dp"
-            android:text="Email:"
+            android:text="@string/DateNais"
 
             android:layout_margin="4dp"
             android:typeface="sans"
             />
         <TextView
-            android:id="@+id/Email_text"
+            android:id="@+id/DateNais_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="15dp"
@@ -303,7 +346,7 @@ style="@style/AppTheme"
             android:layout_margin="5dp"
             />
         <ImageButton
-            android:id="@+id/Email"
+            android:id="@+id/DateNais"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_create_black_24dp"
@@ -313,6 +356,88 @@ style="@style/AppTheme"
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+
+<androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:text="@string/genre"
+
+                android:layout_margin="4dp"
+                android:typeface="sans"
+                />
+            <TextView
+                android:id="@+id/Genre_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:text=""
+                android:layout_weight="4"
+                android:layout_margin="5dp"
+                />
+            <ImageButton
+                android:id="@+id/Genre"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_create_black_24dp"
+                android:background="@null"
+
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+<androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:text="@string/numclient"
+
+                android:layout_margin="4dp"
+                android:typeface="sans"
+                />
+            <TextView
+                android:id="@+id/NumClient_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:text=""
+                android:layout_weight="4"
+                android:layout_margin="5dp"
+                />
+            <ImageView
+                android:id="@+id/NumClient"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/lock"
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 

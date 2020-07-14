@@ -1,4 +1,6 @@
 package com.example.groceryshop.Fragments;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -7,18 +9,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -30,6 +39,10 @@ import com.example.groceryshop.custom.SaveSharedPreference;
 import com.example.groceryshop.custom.Utils;
 import com.example.groceryshop.custom.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -37,43 +50,103 @@ import java.util.regex.Pattern;
 
 public class modifier_dialogfragment extends DialogFragment {
     Button annuler,valider;
-    TextView instruction_msg;
     EditText typed_value;
     String value,info,URL_DATA;
     SaveSharedPreference SSP;
     Boolean annuler_clicked;
+    private Spinner Genre;
+    private ArrayList<String> GenreChoice;
+    private ArrayAdapter<String> GenreAdapter;
     private DialogInterface.OnDismissListener onDismissListener;
+    private ProgressDialog progressdialog;
+    private Activity act;
+    private TextView instruction_msg;
+
+    private Fragment mFragment;
+    public modifier_dialogfragment(Activity act)
+    {
+        this.act=act;
+
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       View v=inflater.inflate(R.layout.modifier_popup,container,false);
       getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         getDialog().setCanceledOnTouchOutside(false);
-      SSP=new SaveSharedPreference(getActivity());
-      URL_DATA= DBUrl.URL_DATA.concat("modifierProfile.php?");
+        instruction_msg=v.findViewById(R.id.instruction_msg);
+        Genre=v.findViewById(R.id.Genre);
+      SSP=new SaveSharedPreference(act);
+      URL_DATA= DBUrl.URL_DATA_Client;
       info=getArguments().getString("info");
+      GenreChoice=new ArrayList<>();
+      mFragment=this;
+
+
+
       annuler_clicked=false;
 
 
 
       annuler=v.findViewById(R.id.annuler);
       valider=v.findViewById(R.id.valider);
-      instruction_msg=v.findViewById(R.id.instruction_msg);
       typed_value=v.findViewById(R.id.typed_value);
 
       switch (info){
           case "nom":
-              instruction_msg.append("Nom");
+
+              if(SSP.getLang().equals("ar")){
+                  typed_value.setHint("اللقب");
+              }else
+              {
+                  typed_value.setHint("Nom");
+              }
+
               break;
           case "prenom":
-              instruction_msg.append("Prenom");
+              if(SSP.getLang().equals("ar")){
+                  typed_value.setHint("اسم");
+              }else
+              {
+                  typed_value.setHint("Prenom");
+              }
+              break;
+          case "email":
+              if(SSP.getLang().equals("ar")){
+                  typed_value.setHint("بريد الإلكتروني");
+              }else
+              {
+                  typed_value.setHint("email");
+              }
+              break;
+          case "Genre":
+              instruction_msg.setVisibility(View.VISIBLE);
+
+              if(SSP.getLang().equals("ar"))
+              {
+                  GenreChoice.add("ذكر");
+                  GenreChoice.add("أنثى");
+                  instruction_msg.setText("جنـس");
+
+              }else
+              {
+                  GenreChoice.add("Mâle");
+                  GenreChoice.add("Femelle");
+                  instruction_msg.setText("Genre");
+              }
+              GenreAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,GenreChoice);
+
+              Genre.setVisibility(View.VISIBLE);
+
+              GenreAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+              Genre.setAdapter(GenreAdapter);
+              typed_value.setVisibility(View.GONE);
               break;
       }
       annuler.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-             annuler_clicked=true;
-              getDialog().cancel();
+              getDialog().dismiss();
           }
       });
       valider.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +154,7 @@ public class modifier_dialogfragment extends DialogFragment {
           public void onClick(View v) {
 
              value=typed_value.getText().toString();
-             if(!value.equals("")){
+             if(!value.equals("") || Genre.getVisibility()==View.VISIBLE){
                  switch (info){
                      case "nom":
                          Pattern p= Pattern.compile(Utils.regExFullName);
@@ -90,7 +163,7 @@ public class modifier_dialogfragment extends DialogFragment {
                              modifierProfile();
                          }else{
                              Log.d("nominco","nom inccorect");
-                             Toast.makeText(getActivity(),"nom incorrect",Toast.LENGTH_LONG).show();
+                             Toast.makeText(act, R.string.NomIncorrect,Toast.LENGTH_LONG).show();
 
 
                          }
@@ -102,7 +175,7 @@ public class modifier_dialogfragment extends DialogFragment {
                              modifierProfile();
                          }else{
                              Log.d("prenominco","prenom inccorect");
-                             Toast.makeText(getActivity(),"prenom incorrect",Toast.LENGTH_LONG).show();
+                             Toast.makeText(act,R.string.PrenomIncorrect,Toast.LENGTH_LONG).show();
 
 
                          }
@@ -114,7 +187,7 @@ public class modifier_dialogfragment extends DialogFragment {
                              modifierProfile();
                          }else{
                              Log.d("emailinco","email inccorect");
-                             Toast.makeText(getActivity(),"email incorrect",Toast.LENGTH_LONG).show();
+                             Toast.makeText(act, R.string.email_incorrect,Toast.LENGTH_LONG).show();
 
 
                          }
@@ -122,9 +195,14 @@ public class modifier_dialogfragment extends DialogFragment {
                      case "address":
                          modifierProfile();
                          break;
+                     case "Genre":
+
+                         Log.d("clicked"," genre");
+                         setDateNais();
+                         break;
                  }
              }else{
-                 Toast.makeText(getActivity(),"champ vide",Toast.LENGTH_LONG);
+                 Toast.makeText(act,R.string.ChampVide,Toast.LENGTH_LONG).show();
              }
           }
       });
@@ -133,24 +211,91 @@ public class modifier_dialogfragment extends DialogFragment {
     }
 
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
+    private void setDateNais(){
+        getDialog().dismiss();
+        progressdialog = new ProgressDialog(act);
+        progressdialog.setMessage("loading...");
+        progressdialog.setCanceledOnTouchOutside(false);
+        progressdialog.show();
+        Log.d("url",""+URL_DATA);
 
-    }
+        RequestQueue reqeu= Volley.newRequestQueue(act);
+
+        StringRequest req;
+
+        req = new StringRequest(Request.Method.POST, URL_DATA, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    Log.d("response"," "+response);
+                    progressdialog.dismiss();
+                    Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.modifierProfile_to_profile_fragment);
 
 
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        if(!annuler_clicked){
-            super.onDismiss(dialog);
-            if (onDismissListener != null) {
-                onDismissListener.onDismiss(dialog);
+                } catch (Exception e) {
+                    Log.d("jsonException"," "+e.toString());
+                }
             }
-        }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("errorvolley"," "+error.toString());
+                if(error instanceof TimeoutError)
+                {
+                    Bundle bundle=new Bundle();
+                    bundle.putString("error","timeout");
+                    Navigation.findNavController(act,R.id.nav_host_fragment).navigate(R.id.error_fragment,bundle);
+                }else if(error instanceof NoConnectionError)
+                {
+                    Bundle bundle=new Bundle();
+                    bundle.putString("error","Noconx");
+                    Navigation.findNavController(act,R.id.nav_host_fragment).navigate(R.id.error_fragment,bundle);
+                }
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("DBUsername", DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+                params.put("Username",SSP.getUsername());
+                params.put("query","UpdateGenre");
+                Log.d("getLang"," "+SSP.getLang());
+                if(SSP.getLang().equals("ar"))
+                {
+                    if(Genre.getSelectedItem().toString().equals("ذكر"))
+                    {
+                        params.put("Genre","1");
+                    }else
+                    {
+                        params.put("Genre","2");
+                    }
+                }else
+                {
+                    if(Genre.getSelectedItem().toString().equals("Mâle"))
+                    {
+                        params.put("Genre","1");
+                    }else
+                    {
+                        params.put("Genre","2");
+                    }
+                }
+
+
+
+
+                return params;
+            }
+        };
+        reqeu.add(req);
 
     }
     public void modifierProfile(){
-        RequestQueue reqeu = VolleySingleton.getInstance(getActivity()).getRequestQueue();
+        getDialog().dismiss();
+        RequestQueue reqeu = VolleySingleton.getInstance(act).getRequestQueue();
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL_DATA,
                 new Response.Listener<String>()
                 {
@@ -158,7 +303,8 @@ public class modifier_dialogfragment extends DialogFragment {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
-                        getDialog().dismiss();
+
+                        Navigation.findNavController(act,R.id.nav_host_fragment).navigate(R.id.profile_fragment);
 
 
                     }
@@ -176,26 +322,29 @@ public class modifier_dialogfragment extends DialogFragment {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("username",SSP.getUsername());
+                params.put("DBUsername", DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+              params.put("Username",SSP.getUsername());
                 switch (info){
                     case "nom":
-                        params.put("iden","nom");
+                        params.put("query","UpdateNom");
                         params.put("value",value);
+
 
 
                         break;
                     case "prenom":
-                        params.put("iden","prenom");
+                        params.put("query","UpdatePrenom");
                         params.put("value",value);
 
                         break;
                     case "email":
-                        params.put("iden","email");
+                        params.put("query","UpdateEmail");
                         params.put("value",value);
 
                         break;
                     case "address":
-                        params.put("iden","address");
+                        params.put("query","UpdateAddress");
                         params.put("value",value);
 
                         break;

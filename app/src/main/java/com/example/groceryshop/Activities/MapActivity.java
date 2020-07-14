@@ -1,9 +1,16 @@
 package com.example.groceryshop.Activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -50,16 +57,19 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import static android.app.AlertDialog.THEME_HOLO_LIGHT;
 import static com.example.groceryshop.custom.Constants.MAPVIEW_BUNDLE_KEY;
 
 public class MapActivity extends AppCompatActivity  implements OnMapReadyCallback{
     private static final String TAG = "UserListFragment";
     private MapView mMapView;
     private Marker mMarker;
-    private EditText address;
     private Button confirmer_adr;
     private String URL_DATA,value;
     private LatLng g;
@@ -69,6 +79,10 @@ public class MapActivity extends AppCompatActivity  implements OnMapReadyCallbac
     private Location currentLocation;
     GoogleMap googleMap;
     private boolean firstTimeFlag = true;
+    private String add;
+
+    private SaveSharedPreference SSP;
+    private  LatLngBounds agharm;
 
 
 
@@ -82,18 +96,32 @@ public class MapActivity extends AppCompatActivity  implements OnMapReadyCallbac
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_fragment);
+        SSP=new SaveSharedPreference(this);
         mMapView = findViewById(R.id.location_map);
         Log.d("mmapview"," "+mMapView);
         confirmer_adr=findViewById(R.id.choisir_adr);
-        address=findViewById(R.id.adr);
         URL_DATA= DBUrl.URL_DATA.concat("modifierProfile.php?");
 
         confirmer_adr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                value=address.getText().toString();
-                if(!value.equals("")){
+
                     g= mMarker.getPosition();
+                Geocoder geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
+                List<Address> addresses = null;
+                add = "";
+                try {
+                    addresses = geocoder.getFromLocation(g.latitude,g.longitude, 1);
+                    Address obj = addresses.get(0);
+
+
+                    add = add + obj.getLocality();
+                    add = add +","+ obj.getSubAdminArea();
+                    add = add +","+ obj.getSubLocality();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                     Intent prev_intent=getIntent();
                     Intent intent=new Intent(getApplicationContext(),VerifyPhoneActivity.class);
                     intent.putExtra("nom", prev_intent.getStringExtra("nom"));
@@ -102,15 +130,11 @@ public class MapActivity extends AppCompatActivity  implements OnMapReadyCallbac
                     intent.putExtra("password", prev_intent.getStringExtra("password"));
                     intent.putExtra("phone", prev_intent.getStringExtra("phone"));
                     intent.putExtra("email", prev_intent.getStringExtra("email"));
-                    intent.putExtra("address", prev_intent.getStringExtra("address"));
                     intent.putExtra("latitude", String.valueOf(g.latitude));
                     intent.putExtra("longitude", String.valueOf(g.longitude));
 
+                    intent.putExtra("Address",add);
                     startActivity(intent);
-
-                }else{
-                    Toast.makeText(getApplicationContext(),"nom d'adresse vide",Toast.LENGTH_LONG).show();
-                }
             }
         });
 
@@ -212,7 +236,13 @@ public class MapActivity extends AppCompatActivity  implements OnMapReadyCallbac
                 animateCamera(currentLocation);
                 firstTimeFlag = false;
             }
-            showMarker(currentLocation);
+            LocationManager lm = (LocationManager)getBaseContext().getSystemService(getBaseContext().LOCATION_SERVICE);
+
+
+                showMarker(currentLocation);
+
+
+
         }
     };
 
@@ -223,7 +253,14 @@ public class MapActivity extends AppCompatActivity  implements OnMapReadyCallbac
     private void showMarker(@NonNull Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         if (mMarker == null)
+        {
             mMarker = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(latLng));
+
+        }else if(mMarker.getPosition().latitude==beni_isguen.latitude
+                && mMarker.getPosition().longitude==beni_isguen.longitude)
+        {
+            mMarker.setPosition(latLng);
+        }
 
 
     }
@@ -252,21 +289,151 @@ public class MapActivity extends AppCompatActivity  implements OnMapReadyCallbac
             @Override
             public void onMapClick(LatLng latLng) {
                 Log.d("onmapready","onclick");
-                mMarker.setPosition(latLng);
+                if(agharm.contains(latLng))
+                {
+                    mMarker.setPosition(latLng);
+                }
+
 
 
             }
         });
+        LocationManager lm = (LocationManager)getBaseContext().getSystemService(getBaseContext().LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+        String status="";
+        Boolean AvailConx=false;
+        ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                status = "Wifi enabled";
+                AvailConx=true;
+
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                status = "Mobile data enabled";
+                AvailConx=true;
+
+            }
+        } else {
+            status = "No internet is available";
+
+        }
+        Log.d("connextion"," "+status+" "+AvailConx);
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+        if(!gps_enabled) {
+            AlertDialog.Builder mBuilder=new AlertDialog.Builder(this, THEME_HOLO_LIGHT);
+
+
+            if(SSP.getLang().equals("ar"))
+            {
+                final String[] listItems={"العودة","إعادة المحاولة"};
+                mBuilder.setTitle("الرجاء تفعيل خاصية تحديد الموقع");
+                mBuilder.setItems(listItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
+                            finish();
+                            startActivity(getIntent());
+
+                        }else if(which==1)
+                        {
+                            finish();
+
+                        }
+
+                    }
+
+                });
+
+            }else{
+                final String[] listItems={"réessayer","retour"};
+                mBuilder.setTitle("s'il vous plaît activer la localisation");
+                mBuilder.setItems(listItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
+                            finish();
+                            startActivity(getIntent());
+
+                        }else if(which==1)
+                        {
+                            finish();
+
+                        }
+
+                    }
+                });
+            }
+            AlertDialog alterdial=mBuilder.create();
+            alterdial.setCanceledOnTouchOutside(false);
+            alterdial.setCancelable(false);
+            alterdial.show();
+
+        }else
+        if(!AvailConx){
+            AlertDialog.Builder mBuilder=new AlertDialog.Builder(this, THEME_HOLO_LIGHT);
+            if(SSP.getLang().equals("ar"))
+            {
+                final String[] listItems={"العودة","إعادة المحاولة"};
+                mBuilder.setTitle("الرجاء تشغيل الأنترنت");
+                mBuilder.setItems(listItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
+                            finish();
+                            startActivity(getIntent());
+
+                        }else if(which==1)
+                        {
+                            finish();
+
+                        }
+
+
+                    }
+
+                });
+
+            }else{
+                final String[] listItems={"réessayer","retour"};
+                mBuilder.setTitle("s'il vous plaît activer l'internet");
+                mBuilder.setItems(listItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
+                            finish();
+                            startActivity(getIntent());
+
+                        }else if(which==1)
+                        {
+                            finish();
+
+                        }
+
+
+                    }
+                });
+            }
+            AlertDialog alterdial=mBuilder.create();
+            alterdial.setCanceledOnTouchOutside(false);
+            alterdial.setCancelable(false);
+            alterdial.show();
+        }
         map.setMyLocationEnabled(true);
 
 
 
-        LatLngBounds agharm = new LatLngBounds(new LatLng(32.456401, 3.681278),
+       agharm = new LatLngBounds(new LatLng(32.456401, 3.681278),
                 new LatLng(32.481167,3.703852));
         map.setLatLngBoundsForCameraTarget(agharm);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(beni_isguen, 15));
 
+
         if(mMarker==null){
+            mMarker = googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker()).position(beni_isguen));
 
         }
 

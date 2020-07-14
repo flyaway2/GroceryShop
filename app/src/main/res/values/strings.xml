@@ -1,77 +1,155 @@
 <resources>
     <string name="app_name">Grocery Shop</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Tawenza épicerie</string>
-    <string name="nav_header_subtitle">0774546204</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_main2" translatable="false">Tawenza</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Tawenza épicerie</string>
+    <string name="nav_header_subtitle" translatable="false">0774546204</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings" translatable="false">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-    <string name="open">Open Navigation Drawer</string>
-    <string name="close">Close Navigation Drawer</string>
+    <string name="menu_home" translatable="false">Home</string>
+    <string name="menu_gallery" translatable="false">Gallery</string>
+    <string name="menu_slideshow" translatable="false">Slideshow</string>
+    <string name="menu_tools" translatable="false">Tools</string>
+    <string name="menu_share" translatable="false">Share</string>
+    <string name="menu_send" translatable="false">Send</string>
+    <string name="open" translatable="false">Open Navigation Drawer</string>
+    <string name="close" translatable="false">Close Navigation Drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="spin">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
 
+    <string name="map_key" translatable="false">AIzaSyBKS8MXX-INDxV4_RxsZ7oNK8fAWBF-aZQ</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
 
-
-
-    </string>
-    <string name="map_key">AIzaSyBKS8MXX-INDxV4_RxsZ7oNK8fAWBF-aZQ</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="user">username</string>
-    <string name="email">Email Id</string>
-    <string name="passowrd">Mot de Passe</string>
-    <string name="login">LOGIN</string>
-    <string name="show_pwd">Show Password</string>
-    <string name="hide_pwd">Hide Password</string>
-    <string name="forgot">Forgot password?</string>
-    <string name="closebutton">Close Button for Activity</string>
-    <string name="newUser">Not a Member yet? Sign Up here.</string>
-    <string name="fullName">Full Name</string>
-    <string name="Nom">Nom</string>
+    <string name="Nom" >Nom</string>
     <string name="Prenom">Prenom</string>
-    <string name="mobileNumber">Mobile Number</string>
+    <string name="phone" >Numéro de Tel</string>
+
+    <string name="user" >Nom d\'utilisateur</string>
+
+    <string name="login" >CONNECTER</string>
+    <string name="show_pwd" >Afficher Mot de Passe</string>
+    <string name="forgot" >Mot de Passe oubliée?</string>
+    <string name="newUser" >"Vous n'etes pas encore inscrier? Cliquez ici."</string>
+    <string name="email">Email</string>
+    <string name="passowrd" >Mot de Passe</string>
+    <string name="DateNais">Date Naissance</string>
+    <string name="genre">Genre</string>
+    <string name="numclient">Client N:</string>
+
+
+    <string name="hide_pwd">Cacher Mot de Passe</string>
+
+
+    <string name="closebutton">Close Button for Activity</string>
+    <string name="fullName" >Full Name</string>
+    <string name="mobileNumber" >Mobile Number</string>
     <string name="location">Location</string>
-    <string name="confirmPassword">Confirm Password</string>
-    <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
-    <string name="signUp">SIGN UP</string>
-    <string name="already_user">Already have Account? Login here.</string>
-    <string name="registered_emailid">entrer votre Numero de Telephone:</string>
-    <string name="submit">SUBMIT</string>
-    <string name="back">BACK</string>
-    <string name="phone">Numéro de Telephone</string>
-    <string name="title_activity_verify_phone">VerifyPhoneActivity</string>
-    <string name="annuler">Annuler</string>
+    <string name="signUp" >SIGN UP</string>
+    <string name="title_activity_verify_phone" >VerifyPhoneActivity</string>
+
+
+    <string name="registered_emailid" >entrer votre Numero de Telephone:</string>
+
+    <string name="submit" >VALIDER</string>
+    <string name="back" >RETOUR</string>
+
+
+    <string name="annuler" >Annuler</string>
     <string name="valider">Valider</string>
-    <string name="choisir_cette_adresse">Choisir cette adresse</string>
+    <string name="choisir_cette_adresse" >Choisir cette adresse</string>
+    <string name="accueil">Accueil</string>
+    <string name="panier">Panier</string>
+    <string name="params">Paramètres</string>
+    <string name="credit">Credit</string>
+    <string name="retirer">RETIRER</string>
+    <string name="profil">Profil</string>
+    <string name="Profil_Desc">modifier les données du profil</string>
+    <string name="change_language">Change Language</string>
+    <string name="Change_Lang_Desc">changer la langue de l\'application</string>
+    <string name="log_out">Déconnecter</string>
+    <string name="log_out_Desc">Terminez votre session en cours</string>
+    <string name="AjouterPanier">Ajouter Au Panier</string>
+    <string name="Accueil">Accueil</string>
+    <string name="Panier">Panier</string>
+    <string name="Address">Adresse</string>
+    <string name="Error">Error</string>
+    <string name="Parametre">Paramètres</string>
+    <string name="total">TOTAL</string>
+    <string name="email_incorrect">email incorrect</string>
+    <string name="login_incorrect">Nom d\'utilisateur ou mot de passe incorrect</string>
+    <string name="balance">Montant:</string>
+    <string name="creditfrag">credit</string>
+    <string name="arabic">Arabic</string>
+    <string name="french">Français</string>
+    <string name="LangChoice">Choisir la langue..</string>
+
+    <string name="mode_pay">Modalité de Paiement</string>
+    <string name="mes_commandes">Mes Commandes</string>
+
+    <string name="inscription">Inscription</string>
+    <string name="nom_d_utilisateur">Nom d\'utilisateur</string>
+    <string name="numero_de_telephone">Numero de Telephone</string>
+    <string name="inscrire">inscrire</string>
+    <string name="confirmPassword" >réécrire mot de passe</string>
+    <string name="already_user" >Vous avez déja un Compte? Cliquez ici.</string>
+    <string name="saisir_le_nom_d_adresse">saisir le nom d\'adresse...</string>
+    <string name="attrendre_le_code">Attrendre le code</string>
+    <string name="enter_verification_code">enter verification code</string>
+    <string name="PhoneExist">Numero de Telephone existe déja.</string>
+    <string name="UsernameExist">Nom Utilisateur existe déja.</string>
+    <string name="TelInvalid">Numero de telephone invalide.</string>
+    <string name="AllChamp">Tous les champs sont obligatoire.</string>
+    <string name="EmailInvalid">Email Invalide.</string>
+    <string name="DiffPass">les deux mots de passe ne sont pas identiques.</string>
+    <string name="ConxBleme">Vérifier votre connexion</string>
+    <string name="EntrezNum">entrer votre Numéro.</string>
+    <string name="PhoneNExist">Le numéro n\'existe pas</string>
+
+    <string name="service_de_livraison">service de livraison</string>
+    <string name="receipt">Reçu</string>
+    <string name="article">Description</string>
+    <string name="prix">Prix</string>
+    <string name="frais_livraison">Frais Livraison</string>
+    <string name="totalGen">Total Général</string>
+    <string name="OnDelivery">paiement à la livraison</string>
+    <string name="portefeuille">Portefeuille</string>
+
+    <string name="modPay">Choisir Modalité de paiement</string>
+    <string name="AddressExp">Adresse Expédition</string>
+    <string name="Choisir_Horaire">choisir l\'horaire de livraison</string>
+
+    <string name="OldAddress">Votre Adresse Initiale</string>
+    <string name="NewAddress">Choisir une nouvelle adresse</string>
+    <string name="AddNewAddress">Ajouter une nouvelle adresse</string>
+    <string name="horaire">Horaire de Livraison</string>
+
+    <string name="statut">Statut</string>
+    <string name="NomIncorrect">nom incorrect</string>
+    <string name="PrenomIncorrect">prenom incorrect</string>
+    <string name="ChampVide">champ vide</string>
+    <string name="Choisir_liv">Choisir temps de livraison:</string>
+    <string name="AdressExpTitle">Adresse Expédition</string>
+    <string name="TempLiv">Temps de Livraison</string>
+    <string name="WebHost">https://grocery1o1.000webhostapp.com/</string>
+    <string name="panier_vide">panier vide</string>
+    <string name="NoNetwork">Pas de connexion</string>
+    <string name="NoNetwork_Msg">Un problème de connexion s\'est produit, veuillez réessayer</string>
+    <string name="Refresh">Réessayez</string>
+    <string name="ResendCode">Renvoyer le Code</string>
+    <string name="InvalidForm">entrer une forme valide</string>
+    <string name="changer_mot_de_passe">changer Votre Mot de Passe</string>
+    <string name="no_product">aucun produit n\'est associé à ce catégorie</string>
+    <string-array name="arrayPays">
+        <item>Algérie</item>
+    </string-array>
+    <string-array name="arrayWilaya">
+        <item>Ghardaia</item>
+    </string-array>
+    <string-array name="arrayDaira">
+        <item>Bounoura</item>
+    </string-array>
 
 </resources>

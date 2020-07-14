@@ -8,19 +8,26 @@
 
 
 <group android:checkableBehavior="single">
-    <item android:id="@+id/nav_Profile"
-        android:title="Profile"
-        />
     <item android:id="@+id/nav_produit"
-        android:title="Produits"
+        android:icon="@drawable/home"
+        android:title="@string/accueil"
         />
+    <item android:id="@+id/nav_MesCommandes"
+        android:icon="@drawable/mescommand"
+        android:title="@string/mes_commandes"
+        />
+    <item android:id="@+id/nav_Credit"
+        android:icon="@drawable/credit2"
+        android:title="@string/credit"
+        />
+
     <item android:id="@+id/nav_panier"
         android:icon="@drawable/ic_add_shopping_cart_black_24dp"
-        android:title="Panier"
-
+        android:title="@string/panier"
         />
-    <item android:id="@+id/nav_logout"
-        android:title="Log out"
+    <item android:id="@+id/nav_parametre"
+        android:icon="@drawable/parametre"
+        android:title="@string/params"
         />
 </group>
 

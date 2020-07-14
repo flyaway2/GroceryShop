@@ -21,6 +21,8 @@ public class SaveSharedPreference {
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "name";
 
+    public static final String KEY_Lang= "Lang";
+
     // password address (make variable public to access from outside)
     public static final String KEY_password = "password";
 
@@ -38,6 +40,15 @@ public class SaveSharedPreference {
         SharedPreferences.Editor editor=getPreferences(context).edit();
         editor.putBoolean(LOGGED_IN_PREF,LoggedIn);
         editor.apply();
+    }
+    public void setLang(String Lang)
+    {
+        editor.putString(KEY_Lang,Lang);
+        editor.commit();
+    }
+    public String getLang()
+    {
+        return pref.getString(KEY_Lang,"en_us");
     }
     public boolean getLoggedSattus(Context context){
         Log.d("islogin"," "+pref.getBoolean(IS_LOGIN,false));
@@ -74,7 +85,8 @@ public class SaveSharedPreference {
         // Clearing all data from Shared Preferences
         editor.putBoolean(IS_LOGIN,false);
 
-        editor.clear();
+        editor.remove(KEY_NAME);
+        editor.remove(KEY_password);
         editor.commit();
         Log.d("logout"," editor:"+editor+" key name:"+getPreferences(context).getString(KEY_NAME,"name")+" "+
         getPreferences(context).getBoolean(IS_LOGIN,false));

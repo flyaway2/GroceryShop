@@ -1,5 +1,6 @@
 package com.example.groceryshop.Fragments;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,23 +34,27 @@ import com.example.groceryshop.DynamicGridLayoutManager;
 import com.example.groceryshop.R;
 import com.example.groceryshop.custom.CustomToast;
 import com.example.groceryshop.custom.DBUrl;
+import com.example.groceryshop.custom.SaveSharedPreference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.groceryshop.R.id.recyclerProd;
 
 public class categorie_fragment extends Fragment {
-    private static final String URL_DATA= DBUrl.URL_DATA.concat("index.php");
+    private  String URL_DATA;
     private RecyclerView RecView;
     private RecyclerView.Adapter adapter;
     public static List<categorieList> catlists;
     public DynamicGridLayoutManager ll;
     private Context context;
+    private SaveSharedPreference SSP;
     View view1;
     @Override
     public void onAttach(Context context) {
@@ -62,6 +69,9 @@ public class categorie_fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view1= inflater.inflate(R.layout.fragment_home,container,false);
+        SSP=new SaveSharedPreference(getContext());
+
+        URL_DATA=DBUrl.URL_DATA_Categorie;
         Log.d("produit fragment",view1.toString());
         RecView= view1.findViewById(recyclerProd);
 
@@ -90,42 +100,38 @@ public class categorie_fragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);}
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        }
+    }
 
-            private  List<categorieList> loadUrlData() {
+    private  List<categorieList> loadUrlData() {
                 catlists=new ArrayList<>();
                 final ProgressDialog progressdialog = new ProgressDialog(getActivity());
                 progressdialog.setMessage("loading..");
                 progressdialog.setCanceledOnTouchOutside(false);
                 progressdialog.show();
                 RequestQueue reqeu = Volley.newRequestQueue(getActivity());
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DATA, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("I'm here", "OnResponse");
+
                         progressdialog.dismiss();
                         try {
+                            Log.i("response", "OnResponse "+response);
                             JSONArray json = new JSONArray(response);
 
                             for (int i = 0; i < json.length(); i++) {
                                 JSONObject cat = json.getJSONObject(i);
 
-                                categorieList catlist = new categorieList(cat.getString("Nom"), cat.getString("img"));
+                                categorieList catlist = new categorieList(cat.getInt("ID"),cat.getString("Nom"),cat.getString("NomAr"), cat.getString("Img"));
                                 catlists.add(catlist);
 
 
                             }
-                            //temporary
-                            if(catlists.size()==0 && catlists.isEmpty()){
-                                categorieList catlist = new categorieList("beurre", "index");
-                                categorieList catlist1 = new categorieList("gateaux", "cupcake");
-                                catlists.add(catlist);
-                                catlists.add(catlist1);
-                            }
-                            // temporary ends
                             ArrayList<produitCommand> commlist;
                             if(getArguments()==null){
                                 commlist=new ArrayList<produitCommand>();
@@ -134,7 +140,7 @@ public class categorie_fragment extends Fragment {
                                 commlist= getArguments().getParcelableArrayList("commandList");
                             }
 
-                            adapter = new categorieAdapter(catlists, getActivity(),commlist);
+                            adapter = new categorieAdapter(getActivity(),catlists, getActivity(),commlist);
 
                             RecView.setAdapter(adapter);
                             RecView.setLayoutManager(ll);
@@ -167,7 +173,20 @@ public class categorie_fragment extends Fragment {
 
                     }
 
-                });
+                }){
+                    @Override
+                    protected Map<String, String> getParams()
+                    {
+                        Map<String, String>  params = new HashMap<String, String>();
+                        params.put("DBUsername",DBUrl.DBUsername);
+                        params.put("DBPassword",DBUrl.DBPassword);
+                        params.put("query","Select");
+
+
+
+                        return params;
+                    }
+                };
 
                 Log.i("this is my shit", " catlists size: "+catlists.size());
                 reqeu.add(stringRequest);

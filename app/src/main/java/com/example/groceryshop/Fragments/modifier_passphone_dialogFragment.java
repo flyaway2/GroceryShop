@@ -1,5 +1,7 @@
 package com.example.groceryshop.Fragments;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.Navigation;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,6 +44,15 @@ public class modifier_passphone_dialogFragment extends DialogFragment {
     SaveSharedPreference SSP;
     private DialogInterface.OnDismissListener onDismissListener;
     Boolean annuler_clicked;
+    private CheckBox Show_Pass;
+    private ProgressDialog progressdialog;
+    private Activity act;
+
+    public modifier_passphone_dialogFragment(Activity act)
+    {
+        this.act=act;
+
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +69,7 @@ public class modifier_passphone_dialogFragment extends DialogFragment {
         valider=v.findViewById(R.id.valider);
         info=getArguments().getString("info");
 
-        URL_DATA= DBUrl.URL_DATA.concat("modifierProfile.php?");
+        URL_DATA= DBUrl.URL_DATA_Client;
         switch (info){
             case "phone":
                 typed_value.setHint("Numéro de Tel");
@@ -135,6 +148,11 @@ public class modifier_passphone_dialogFragment extends DialogFragment {
     }
 
     public void modifierProfile(){
+        getDialog().dismiss();
+        progressdialog = new ProgressDialog(act);
+        progressdialog.setMessage("loading...");
+        progressdialog.setCanceledOnTouchOutside(false);
+        progressdialog.show();
         RequestQueue reqeu = VolleySingleton.getInstance(getActivity()).getRequestQueue();
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL_DATA,
                 new Response.Listener<String>()
@@ -144,7 +162,8 @@ public class modifier_passphone_dialogFragment extends DialogFragment {
                         // response
                         Log.d("Response", response);
 
-                        getDialog().dismiss();
+                        progressdialog.dismiss();
+                        Navigation.findNavController(act,R.id.nav_host_fragment).navigate(R.id.modifier_passphone_to_profile_fragment);
 
 
                     }
@@ -162,17 +181,19 @@ public class modifier_passphone_dialogFragment extends DialogFragment {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("username",SSP.getUsername());
+                params.put("Username",SSP.getUsername());
+                params.put("DBUsername", DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
                 switch (info){
                     case "phone":
-                        params.put("iden","phone");
+                        params.put("query","UpdatePhone");
                         params.put("value",value);
 
 
 
                         break;
                     case "password":
-                        params.put("iden","password");
+                        params.put("query","UpdatePassword");
                         params.put("value",value);
                         SSP.setPassword(value);
 

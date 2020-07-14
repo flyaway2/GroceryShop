@@ -50,7 +50,7 @@ public class CheckAccount_Activity extends AppCompatActivity {
 
     SaveSharedPreference SSP;
 
-    private static String URL_DATA=DBUrl.URL_DATA.concat("signup.php?");
+    private static String URL_DATA=DBUrl.URL_DATA_Client;
     @Override
     public void onBackPressed() {
         //

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragment1"
         android:name="com.example.groceryshop.Fragments.categorie_fragment"
-        android:label="Catégories"
+        android:label="@string/Accueil"
         tools:layout="@layout/fragment_home"
 
         >
@@ -20,8 +20,16 @@
     <fragment
         android:id="@+id/fragment2"
         android:name="com.example.groceryshop.Fragments.panier_fragment"
-        android:label="Panier"
-        tools:layout="@layout/panier_gridview" />
+        android:label="@string/Panier"
+        tools:layout="@layout/panier_gridview" >
+        <action
+            android:id="@+id/action_panier_to_empty_fragment"
+            app:destination="@id/empty_fragment"
+            app:popUpTo="@id/fragment2"
+            app:popUpToInclusive="true"
+
+            />
+    </fragment>
     <fragment
         android:id="@+id/recyclerP_fragment"
         android:name="com.example.groceryshop.Fragments.produit_fragment"
@@ -30,28 +38,117 @@
         <argument
             android:name="categorie"
             app:argType="string" />
+        <action
+            android:id="@+id/product_to_no_Product"
+            app:destination="@id/no_Product"
+            app:popUpTo="@id/recyclerP_fragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
         android:name="com.example.groceryshop.Fragments.profile_fragment"
-        android:label="compte"
+        android:label="@string/profil"
         tools:layout="@layout/compte" />
     <fragment
         android:id="@+id/map_fragment"
         android:name="com.example.groceryshop.Fragments.Map_fragment"
-        android:label="Address"
+        android:label="@string/Address"
 
-        tools:layout="@layout/map_fragment" />
+        tools:layout="@layout/map_fragment" >
+        <action
+            android:id="@+id/action_map_fragment_to_expedition_address"
+            app:destination="@id/expedition_address"
+            app:popUpTo="@id/expedition_address"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/error_fragment"
         android:name="com.example.groceryshop.Fragments.error_fragment"
-        android:label="Error"
+        android:label="@string/Error"
         tools:layout="@layout/nonetwork" />
     <fragment
         android:id="@+id/empty_fragment"
         android:name="com.example.groceryshop.Fragments.empty_fragment"
-        android:label="Panier"
+        android:label="@string/Panier"
         tools:layout="@layout/empty_fragment" />
+    <fragment
+        android:id="@+id/parametre"
+        android:name="com.example.groceryshop.Fragments.parametre"
+        android:label="@string/Parametre"
+        tools:layout="@layout/parametre" />
+    <fragment
+        android:id="@+id/credit"
+        android:name="com.example.groceryshop.Fragments.Credit"
+        android:label="@string/creditfrag"
+        tools:layout="@layout/credit" />
+    <fragment
+        android:id="@+id/modalitePay"
+        android:name="com.example.groceryshop.Fragments.ModalitePay"
+        android:label="@string/mode_pay"
+        tools:layout="@layout/mode_pay" />
+    <fragment
+        android:id="@+id/disp"
+        android:name="com.example.groceryshop.Fragments.Disp"
+        android:label="@string/TempLiv"
+        tools:layout="@layout/disp" />
+    <fragment
+        android:id="@+id/expedition_address"
+        android:name="com.example.groceryshop.Fragments.expedition_address"
+        android:label="@string/AdressExpTitle"
+        tools:layout="@layout/expedition_address" >
+        <action
+            android:id="@+id/action_expedition_address_to_receipt"
+            app:destination="@id/receipt"
+            app:popUpTo="@layout/panier_gridview"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/receipt"
+        android:name="com.example.groceryshop.Fragments.Receipt"
+        android:label="@string/receipt"
+        tools:layout="@layout/receipt" />
+    <fragment
+        android:id="@+id/mes_Commandes"
+        android:name="com.example.groceryshop.Fragments.Mes_Commandes"
+        android:label="@string/mes_commandes"
+        tools:layout="@layout/mes_commandes_recycler" />
+    <fragment
+        android:id="@+id/no_Product"
+        android:name="com.example.groceryshop.Fragments.No_Product"
+        android:label=""
+        tools:layout="@layout/no_product" />
+    <fragment
+        android:id="@+id/modifier_dialogfragment"
+        android:name="com.example.groceryshop.Fragments.modifier_dialogfragment"
+        android:label="modifier_popup"
+        tools:layout="@layout/modifier_popup" >
+        <action
+            android:id="@+id/modifierProfile_to_profile_fragment"
+            app:destination="@id/profile_fragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/modifier_dialogfragment"
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/qteSetter"
+        android:name="com.example.groceryshop.Fragments.QteSetter"
+        android:label="modifier_popup"
+        tools:layout="@layout/modifier_popup" />
+    <fragment
+        android:id="@+id/modifier_passphone_dialogFragment"
+        android:name="com.example.groceryshop.Fragments.modifier_passphone_dialogFragment"
+        android:label="modifier_popup_passphone"
+        tools:layout="@layout/modifier_popup_passphone" >
+        <action
+            android:id="@+id/modifier_passphone_to_profile_fragment"
+            app:destination="@id/profile_fragment"
+            app:popUpTo="@id/modifier_passphone_dialogFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
 
 
 </navigation>

@@ -5,51 +5,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.groceryshop.Fragments.profile_fragment;
+import com.example.groceryshop.Fragments.produit_fragment;
+import com.example.groceryshop.Interface.IOnBackPressed;
 import com.example.groceryshop.R;
 import com.example.groceryshop.Beans.categorieList;
 import com.example.groceryshop.Beans.produitCommand;
 import com.example.groceryshop.custom.DBUrl;
 import com.example.groceryshop.custom.SaveSharedPreference;
-import com.google.android.gms.common.util.Hex;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,20 +47,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView RecView;
     private RecyclerView.Adapter adapter;
     private List<categorieList> catlists;
-    private Toolbar toolbar;
+    public Toolbar toolbar;
     private NavigationView navview;
     private NavController navController;
     private  ArrayList<produitCommand> CommList;
     SaveSharedPreference SSP;
+    private void setAppLocale(String localeCode){
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(new Locale(localeCode.toLowerCase()));
+        }else
+        {
+            configuration.locale=new Locale(localeCode.toLowerCase());
+        }
+        resources.updateConfiguration(configuration, displayMetrics);
+        configuration.locale = new Locale(localeCode.toLowerCase());
+        resources.updateConfiguration(configuration, displayMetrics);
+    }
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
 
+        FirebaseMessaging.getInstance().subscribeToTopic("allDevices");
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         SSP=new SaveSharedPreference(getApplicationContext());
+        setAppLocale(SSP.getLang());
+
+
+        setContentView(R.layout.activity_main);
+
+
+
 
         setupNavigation();
+
+        Log.d("FCMTOKEN", FirebaseInstanceId.getInstance().getToken());
+
         Log.d("mainlog"," "+SSP.getLoggedSattus(getApplicationContext()));
         if(SSP.getLoggedSattus(getApplicationContext())==false){
 
@@ -88,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#ffda79"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         drawer = findViewById(R.id.drawer);
@@ -106,49 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.nav_host_fragment), drawer);
     }
 
-    private void loadUrlData(){
-        final ProgressDialog progressdialog=new ProgressDialog(this);
-        progressdialog.setMessage("loading.. Im here");
-        progressdialog.show();
-        RequestQueue reqeu= Volley.newRequestQueue(this);
-        StringRequest stringRequest=new StringRequest(Request.Method.GET,URL_DATA,new Response.Listener<String>(){
-            @Override
-           public void onResponse(String response){
-                Log.i("I'm here","OnResponse");
-               progressdialog.dismiss();
-               try{
-                   JSONArray json = new JSONArray(response);
-
-                   for(int i=0;i<json.length();i++){
-                       JSONObject cat= json.getJSONObject(i);
-
-                       categorieList catlist=new categorieList(cat.getString("Nom"),cat.getString("img"));
-                       catlists.add(catlist);
-                       Log.i("this is my shit",catlist.getNom());
-
-                   }
-
-
-               }catch (JSONException e){
-                 Log.e("my error","I got error I got hoes",e);
-               }
-           }
-        }
-        ,new Response.ErrorListener(){
-          @Override
-          public void onErrorResponse(VolleyError error){
-              Toast.makeText(MainActivity.this, "error"+error.toString(), Toast.LENGTH_SHORT).show();
-
-          }
-        });
-        reqeu.add(stringRequest);
-
-
-        RecView.setAdapter(adapter);
-
-
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -168,14 +138,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.fragment2,bundle);
                 Log.d("Hello","panier selected");
                 break;
-            case R.id.nav_logout:
-                SSP.logoutUser();
-                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
+
+            case R.id.nav_parametre:
+                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.parametre,bundle);
                 break;
-            case R.id.nav_Profile:
-                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.profile_fragment,bundle);
-                Log.d("Hello","profile selected");
+            case R.id.nav_Credit:
+                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.credit);
+                break;
+            case R.id.nav_MesCommandes:
+                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.mes_Commandes);
                 break;
         }
 
@@ -187,76 +158,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onBackPressed(){
 
+         Log.d("onbackpressed"," "+Navigation.findNavController(this,R.id.nav_host_fragment).getCurrentDestination().getId()
+           +" "+R.id.recyclerP_fragment);
          if(drawer.isDrawerOpen(GravityCompat.START)){
              drawer.closeDrawer(GravityCompat.START);
         }else{
-             if(profile_fragment.progress_exec==false){
 
+             if(Navigation.findNavController(this,R.id.nav_host_fragment).getCurrentDestination().getId()==R.id.recyclerP_fragment)
+             {
+
+                 Fragment navHostFragment = getSupportFragmentManager().getPrimaryNavigationFragment();
+                 Fragment currentFragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+
+
+                 Fragment fragment =getSupportFragmentManager().findFragmentById(R.id.recyclerP_fragment);
+             
+                 if (!(((IOnBackPressed) currentFragment).onBackPressed())) {
+                     Log.d("this it guys","backing up*********************");
+                     super.onBackPressed();
+                 }
+             }else
+             {
+                 super.onBackPressed();
              }
-             super.onBackPressed();
+
+
+
+
          }
+
+
+
+
 
     }
 
 
 }
 
- class getData extends AsyncTask<String, String, String> {
-
-    HttpURLConnection urlConnection;
-    private Context mContext;
-    private String url1;
-    getData(Context context,String url){
-        mContext = context;
-        url1=url;
-    }
-    @Override
-    protected String doInBackground(String... args) {
-
-        StringBuilder result = new StringBuilder();
-
-        try {
-            URL url = new URL(url1);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-
-        }catch( Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            urlConnection.disconnect();
-        }
-
-
-        return result.toString();
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-
-        //Do something with the JSON string
-
-
-        try {
-           JSONArray json = new JSONArray(result);
-              JSONObject ar= json.getJSONObject(0);
-              Toast.makeText(mContext,"toast " +ar.getString("CodeProd")+" "+ar.getString("Nom")+ar.getString("Marque")
-                , Toast.LENGTH_LONG)
-                .show();
-
-
-        } catch (JSONException e) {
-            Log.e("Exception","",e);
-            e.printStackTrace();
-
-    }
-
-
-}}

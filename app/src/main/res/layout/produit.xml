@@ -83,7 +83,7 @@ app:cardElevation="6dp"
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:src="@drawable/tag"
+            android:src="@drawable/coins"
             />
         <TextView
             android:id="@+id/prix"

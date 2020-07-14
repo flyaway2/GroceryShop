@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@color/background_color"
+    android:background="#dfe6e9"
     android:id="@+id/signupForm"
     >
 
@@ -13,10 +13,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Inscription"
-        android:textColor="@color/white_greyish"
+        android:text="@string/inscription"
+        android:textColor="#636e72"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="italic"
+
+        />
 
 
     <EditText
@@ -32,8 +34,8 @@
         android:inputType="textCapWords"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
         android:textSize="16sp" />
     <EditText
         android:id="@+id/Prenom"
@@ -48,8 +50,8 @@
         android:inputType="textCapWords"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
         android:textSize="16sp" />
     <EditText
         android:id="@+id/Username"
@@ -60,12 +62,12 @@
         android:drawableLeft="@drawable/user"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:hint="Nom d'utilisateur"
+        android:hint="@string/nom_d_utilisateur"
         android:inputType="textCapWords"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
         android:textSize="16sp" />
 
     <View
@@ -86,8 +88,8 @@
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
         android:textSize="16sp" />
 
     <View
@@ -104,12 +106,12 @@
         android:drawableLeft="@drawable/phone"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:hint="Numero de Telephone"
+        android:hint="@string/numero_de_telephone"
         android:inputType="phone"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
         android:textSize="16sp" />
 
     <View
@@ -117,25 +119,7 @@
         android:layout_height="1px"
         android:background="@color/white_greyish" />
 
-    <EditText
-        android:id="@+id/location"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/location"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:hint="@string/location"
-        android:inputType="textCapWords"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        android:focusable="true"
-        android:clickable="true"
-        />
+
 
     <View
         android:layout_width="fill_parent"
@@ -151,12 +135,12 @@
         android:drawableLeft="@drawable/password"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:hint="Mot de Passe"
+        android:hint="@string/passowrd"
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
         android:textSize="16sp" />
 
     <View
@@ -173,13 +157,15 @@
         android:drawableLeft="@drawable/confirm_password"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:hint="Confirmer mot de passe"
+        android:hint="@string/confirmPassword"
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="16sp" />
+        android:textColor="#636e72"
+        android:textColorHint="#636e72"
+        android:textSize="16sp"
+
+        />
 
 
 
@@ -190,7 +176,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/loginbutton_selector"
         android:padding="3dp"
-        android:text="S'inscrire"
+        android:text="@string/inscrire"
         android:textColor="@color/background_color"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -204,7 +190,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/already_user"
-        android:textColor="@color/white_greyish"
+        android:textColor="#636e72"
         android:textSize="15sp" />
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.groceryshop.custom.CustomToast;
 import com.example.groceryshop.custom.DBUrl;
 import com.example.groceryshop.custom.SaveSharedPreference;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -48,6 +50,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     //The edittext to input the code
     private EditText editTextCode;
 
+    private static View view;
+
     //firebase auth object
     private FirebaseAuth mAuth;
     private ProgressBar pb;
@@ -60,14 +64,14 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private String getAddress;
     private String getLatitude;
     private String getLongitude;
+    private String mobile;
+    private Button ResendCode;
+    //Adding a member variable for PhoneAuthProvider.ForceResendingToken callback.
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
+
     SaveSharedPreference SSP;
 
-    private static String URL_DATA=DBUrl.URL_DATA.concat("signup.php?");
-    @Override
-    public void onBackPressed() {
-        //
-
-    }
+    private static String URL_DATA=DBUrl.URL_DATA_Client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +86,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         getPassword=intent.getStringExtra("password");
         getPhone=intent.getStringExtra("phone");
         getEmail=intent.getStringExtra("email");
-        getAddress=intent.getStringExtra("address");
+        getAddress=intent.getStringExtra("Address");
         getLongitude=intent.getStringExtra("longitude");
         getLatitude=intent.getStringExtra("latitude");
 
@@ -95,9 +99,19 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //getting mobile number from the previous activity
         //and sending the verification code to the number
 
-        String mobile = intent.getStringExtra("phone");
+         mobile = intent.getStringExtra("phone");
         sendVerificationCode(mobile);
+
         editTextCode=findViewById(R.id.editTextCode);
+        ResendCode=findViewById(R.id.ResendCode);
+
+        ResendCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("mobile"," mobile="+mobile);
+                resendVerificationCode(mobile, mResendToken);
+            }
+        });
 
         //if the automatic sms detection did not work, user can also enter the code manually
         //so adding a click listener to the button
@@ -106,7 +120,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String code = editTextCode.getText().toString().trim();
                 if (code.isEmpty() || code.length() < 6) {
-                    editTextCode.setError("Enter valid code");
+                    editTextCode.setError(getString(R.string.InvalidForm));
                     editTextCode.requestFocus();
                     return;
                 }
@@ -132,6 +146,17 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
     }
+    //Creating helper method for resending verification code.
+    private void resendVerificationCode(String phoneNumber,
+                                        PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+213" + phoneNumber.replaceFirst("0",""),        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                token);             // ForceResendingToken from callbacks
+    }
 
 
     //the callback to detect the verification status
@@ -154,7 +179,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(VerifyPhoneActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(VerifyPhoneActivity.this, R.string.ConxBleme, Toast.LENGTH_LONG);
+            new CustomToast().Show_Toast(getApplicationContext(), view,getString(R.string.ConxBleme));
+            Log.d("errorfirebase", " "+e.getMessage());
         }
 
         @Override
@@ -163,6 +190,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
             //storing the verification id that is sent to the user
             mVerificationId = s;
+            mResendToken = forceResendingToken;
         }
     };
 
@@ -218,9 +246,17 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
+
+
+                        finishAffinity();
                         Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
                         SSP.createLoginSession(getUsername,getPassword);
+
                         startActivity(intent);
+                        finish();
                     }
                 },
                 new Response.ErrorListener()
@@ -236,6 +272,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
+                params.put("DBUsername",DBUrl.DBUsername);
+                params.put("DBPassword",DBUrl.DBPassword);
+                params.put("query","Insert");
                 params.put("username", getUsername);
                 params.put("Nom", getNom);
                 params.put("Prenom", getPrenom);

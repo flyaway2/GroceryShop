@@ -31,6 +31,15 @@
         android:hint="ancien mot de passe"
 
         />
+    <CheckBox
+        android:id="@+id/show_hide_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_pwd"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

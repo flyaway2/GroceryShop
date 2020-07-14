@@ -87,7 +87,7 @@ public class validerCom_dialogFragment extends DialogFragment {
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
-                        db.deleteAll();
+                        db.deleteAll(SSP.getUsername());
                          progressdialog.dismiss();
                         Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.empty_fragment);
                     }
