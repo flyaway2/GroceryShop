@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cv"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <TextView
+        android:id="@+id/codeProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+       />
+    <TextView
+        android:id="@+id/ImgNom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/Nom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/NomAr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/Marque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/MarqueAr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/TailleAr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/Taille"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/QteRemise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/PrixRemise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_gravity="center_horizontal|center_vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/Img"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+
+                android:src="@drawable/index" />
+
+            <TextView
+                android:id="@+id/Promotion"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:elevation="5dp"
+
+
+                android:background="#f6e58d"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+
+                android:text="110.00"
+                android:visibility="gone"
+                />
+
+
+        </FrameLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#CAD3C8"
+            android:layout_margin="5dp"
+
+            />
+
+
+        <TextView
+            android:id="@+id/Desc"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cannete Pepsi 1L"
+            android:singleLine="true"
+            />
+        <TextView
+            android:id="@+id/TailleDesc"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cannete Pepsi 1L"
+            android:singleLine="true"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/Prix"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120.00"
+
+                />
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/PrixTotal"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="240.00 DA"
+            android:visibility="invisible"
+            />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#CAD3C8"
+            android:layout_margin="5dp"
+
+            />
+        <LinearLayout
+            android:id="@+id/ajouterPanier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/ripple"
+
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="@string/AjouterPanier"
+
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/carte"
+
+                android:layout_marginStart="15dp" />
+
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/QteContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone"
+
+        >
+
+        <ImageButton
+            android:id="@+id/minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:src="@drawable/minus"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#CAD3C8"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+
+            />
+        <TextView
+            android:id="@+id/Qte"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="11"
+            android:textAlignment="center"
+
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#CAD3C8"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+
+            />
+        <ImageButton
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:background="#FFFFFF"
+            />
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+
