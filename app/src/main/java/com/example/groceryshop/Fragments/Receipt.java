@@ -330,7 +330,7 @@ public class Receipt extends Fragment {
 
     }
     private void getStoreInfo(){
-        Log.d("url",""+URL_DATA);
+        Log.d("url",""+URL_DATA_Admin);
 
         RequestQueue reqeu= Volley.newRequestQueue(getActivity());
 
@@ -358,6 +358,7 @@ public class Receipt extends Fragment {
                         Address.append(client.getString("Address"));
                         Tel.setText("Tel: ");
                         Tel.append(client.getString("Phone"));
+
                     }
 
 

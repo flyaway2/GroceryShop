@@ -309,7 +309,7 @@ public class produit_fragment extends Fragment implements IOnBackPressed {
             }
         };
 
-        Log.i("this is my shit", " catlists size: "+pl.size());
+        Log.i("CheckUps", " size of product list: "+pl.size());
         reqeu.add(stringRequest);
 
 

@@ -127,8 +127,8 @@ public class categorie_fragment extends Fragment {
                             for (int i = 0; i < json.length(); i++) {
                                 JSONObject cat = json.getJSONObject(i);
 
-                                categorieList catlist = new categorieList(cat.getInt("ID"),cat.getString("Nom"),cat.getString("NomAr"), cat.getString("Img"));
-                                catlists.add(catlist);
+                                categorieList catObj = new categorieList(cat.getInt("ID"),cat.getString("Nom"),cat.getString("NomAr"), cat.getString("Img"));
+                                catlists.add(catObj);
 
 
                             }
@@ -180,7 +180,7 @@ public class categorie_fragment extends Fragment {
                         Map<String, String>  params = new HashMap<String, String>();
                         params.put("DBUsername",DBUrl.DBUsername);
                         params.put("DBPassword",DBUrl.DBPassword);
-                        params.put("query","Select");
+                        params.put("query","SelectCategorie");
 
 
 
@@ -188,7 +188,7 @@ public class categorie_fragment extends Fragment {
                     }
                 };
 
-                Log.i("this is my shit", " catlists size: "+catlists.size());
+                Log.i("CheckUps", "size of categorie list: "+catlists.size());
                 reqeu.add(stringRequest);
                 return catlists;
 

@@ -1,28 +1,29 @@
 package com.example.groceryshop.custom;
 
 public class DBUrl {
-    public static String URL_DATA="https://grocery1o1.000webhostapp.com/php/Fr/";
 
+    public static String URL_DATA="http://192.168.1.107:8012/php/Fr/";
+    public static String URL_DATA_Img="http://192.168.1.107:8012/php/";
 
-    public static String URL_DATA_Categorie="https://grocery1o1.000webhostapp.com/php/Fr/Categorie.php";
-    public static String URL_DATA_Command_="https://grocery1o1.000webhostapp.com/php/Fr/Command.php";
+    public static String URL_DATA_Categorie=URL_DATA+"Categorie.php";
+    public static String URL_DATA_Command_=URL_DATA+"Command.php";
 
-    public static String URL_DATA_Client="https://grocery1o1.000webhostapp.com/php/Fr/Client.php";
+    public static String URL_DATA_Client=URL_DATA+"Client.php";
 
-    public static String URL_DATA_Livraison="https://grocery1o1.000webhostapp.com/php/Fr/Livraison.php";
+    public static String URL_DATA_Livraison=URL_DATA+"Livraison.php";
 
-    public static String URL_DATA_Livreur="https://grocery1o1.000webhostapp.com/php/Fr/Livreur.php";
-    public static String URL_DATA_ModPay="https://grocery1o1.000webhostapp.com/php/Fr/ModePay.php";
+    public static String URL_DATA_Livreur=URL_DATA+"Livreur.php";
+    public static String URL_DATA_ModPay=URL_DATA+"ModePay.php";
 
-    public static String URL_DATA_Produit="https://grocery1o1.000webhostapp.com/php/Fr/Produit.php";
+    public static String URL_DATA_Produit=URL_DATA+"Produit.php";
 
-    public static String URL_DATA_Admin="https://grocery1o1.000webhostapp.com/php/Fr/Admin.php";
+    public static String URL_DATA_Admin=URL_DATA+"Admin.php";
 
-    public static String URL_DATA_Genre="https://grocery1o1.000webhostapp.com/php/Fr/Genre.php";
+    public static String URL_DATA_Genre=URL_DATA+"Genre.php";
 
-    public static String URL_DATA_ImgCat="https://grocery1o1.000webhostapp.com/php/CatImg/";
-    public static String URL_DATA_ImgProd="https://grocery1o1.000webhostapp.com/php/ProdImg/";
+    public static String URL_DATA_ImgCat=URL_DATA_Img+"CatImg/";
+    public static String URL_DATA_ImgProd=URL_DATA_Img+"ProdImg/";
 
-    public static String DBUsername="id12118924_amine";
-    public static String DBPassword="dexter-_-07";
+    public static String DBUsername="root";
+    public static String DBPassword="";
 }
